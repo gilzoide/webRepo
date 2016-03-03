@@ -10,12 +10,12 @@ function Observer () {
 	this.observed = [];
 
 	/// Adiciona um objeto a ser notificado na lista
-	this.addObserved = function (obj) {
+	this.subscribe = function (obj) {
 		this.observed.push (obj);
 	};
 
 	/// Retira um objeto da lista de notificados
-	this.removeObserved = function (obj) {
+	this.unsubscribe = function (obj) {
 		for (var i = this.observed.length; i--; ) {
 			if (this.observed[i] === obj) {
 				this.observed.splice (i, 1);

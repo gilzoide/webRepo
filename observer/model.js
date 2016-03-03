@@ -1,12 +1,17 @@
-// cria o model, como um observer do control
-model.addObserved (view);
+// model observa a view
+model.subscribe (view);
 
 // valor atual da contagem
 model.value = 0;
 
-// Função notify: value++, atualiza view
-model.notify = function () {
+// Método de atualização: incrementa contador
+model.incrementa = function () {
 	this.value += 1;
 	this.notifyAll (this.value);
 }
 
+// Método de reset do contador, nem é chamado aqui, mas seria útil
+model.reset = function () {
+	this.value = 0;
+	this.notifyAll (this.value);
+}

@@ -1,8 +1,8 @@
 var contador = document.getElementById ('count');
 var botao = document.getElementById ('maisUm');
 
-// cria a view, como um observer do model
-view.addObserved (control);
+// view observa o controller
+view.subscribe (controller);
 
 // Função notify: atualiza o mostrador da contagem
 view.notify = function (valor) {
