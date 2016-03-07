@@ -5,43 +5,82 @@
 		<meta charset="utf-8">
 
 		<link rel="stylesheet" type="text/css" href="bootstrap-3.3.6-dist/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="style.css">
 		<script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 	</head>
 	<body>
-		<!-- Logo -->
-		<div class="page-header">
-			<h1>PET Computação</h1>
-		</div>
+		<div class="container">
+			<!-- Logo -->
+			<div class="page-header">
+				<h1>PET Computação</h1>
+			</div>
 
-		<!-- Menus -->
-		<div class="row">
-			<div class="col-md-8">
-				<div class="btn-group" role="group" aria-label="...">
-					<button type="button" class="btn btn-default">Home</button>
-					<button type="button" class="btn btn-default">Projetos</button>
-					<button type="button" class="btn btn-default">Fale conosco</button>
+			<!-- Menus -->
+			<div class="row">
+				<div class="col-md-8">
+					<div class="btn-group" role="group" aria-label="...">
+						<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-home"></span> Home</button>
+						<button type="button" class="btn btn-default">Projetos</button>
+						<button type="button" class="btn btn-default">Membros</button>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+					<input type="text">
+					<button type="button" class="btn btn-default">Buscar</button>
 				</div>
 			</div>
-			<div class="col-md-4">
-				<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-				<input type="text">
-				<button type="button" class="btn btn-default">Buscar</button>
-			</div>
-		</div>
 
-		<!-- Conteúdo -->
-		<div class="row">
-			<div class="col-md-8">
-				principal
+			<!-- Conteúdo -->
+			<div class="row flex-row">
+				<div class="col-md-8">
+					<div class="panel panel-default flex-col">
+						<div class="panel-heading">Programa de Educação Tutorial</div>
+						<div class="panel-body flex-grow">
+							<p>
+								O PET é um grupo de alunos (no máximo 12 bolsistas e 6 voluntários)
+								que demonstrem potencial, interesse e habilidades destacadas em
+								cursos de graduação das IES.
+							</p>
+							<br>
+							<p>
+								O Programa busca propiciar aos alunos, sob a orientação de um
+								professor tutor, condições para a realização de atividades
+								extracurriculares, que complementem a sua formação acadêmica,
+								procurando atender mais plenamente as necessidades do próprio
+								curso de graduação e/ou ampliar e aprofundar os objetivos e os
+								conteúdos programáticos que integram sua grade curricular.
+								Nesse sentido, proporciona uma melhoria da qualidade acadêmica
+								dos cursos de graduação.
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="panel panel-default">
+						<div class="panel-heading">Inscreva-se já!</div>
+						<div class="panel-body">
+							<p>
+								O processo seletivo está aberto.
+							</p>
+							<p>
+								Basta responder ao
+								<a href="http://goo.gl/forms/vuvejDAzx8">formulário</a>.
+								Cola conóis que tu brilha ;]
+							</p>
+						</div>
+					</div>
+				</div>
 			</div>
-			<div class="col-md-4">
-				alternativo
-			</div>
-		</div>
 
-		<!-- Rodapé -->
-		<div class="row">
-			rodape
-		</div>
+			<!-- Rodapé -->
+			<footer class="footer">
+				<div class="container">
+					<span class="glyphicon glyphicon-info-sign"></span> Informações: <br>
+					Telefone: (16) 1234-1235 <br>
+					Email: pet@pet.br
+				</div>
+			</footer>
+		<div>
 	</body>
 </html>
