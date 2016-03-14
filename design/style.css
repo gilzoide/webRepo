@@ -1,0 +1,14 @@
+/* Trabalho 4 - Web - CSS
+ * Augusto de Paula Freitas - 8937191
+ * Gil Barbosa Reis - 8532248
+ */
+
+/* Código pegado dos exemplos do bootstrap */
+.footer {
+	position: absolute;
+	bottom: 0;
+	width: 90%;
+	/* Set the fixed height of the footer here */
+	height: 60px;
+	background-color: #f5f5f5;
+}

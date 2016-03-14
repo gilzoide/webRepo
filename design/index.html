@@ -1,0 +1,43 @@
+<!--
+Trabalho 5 - Web - Design + Angular
+Gil Barbosa Reis - 8532248
+-->
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Tarefa 5 - Design + Angular</title>
+		<meta charset="utf-8">
+
+		<link rel="stylesheet" type="text/css" href="bootstrap-3.3.6-dist/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<script src="angular.min.js"></script>
+		<script src="meCu.js"></script>
+	</head>
+	<body ng-app='meCu'>
+		<div ng-controller='meCuController' class="container">
+			<!-- Logo -->
+			<div class="page-header row">
+				<div class='col-md-1'>
+					<img src='cavalo.png'>
+				</div>
+				<div class='col-md-6'>
+					<h1>Gil Barbosa Reis <small>8532248</small></h1>
+				</div>
+				<div class="btn-group col-md-4" role="group" aria-label="...">
+					<button class="btn btn-default"><span class="glyphicon glyphicon-home"></span> Home</button>
+					<button class="btn btn-default"><span class="glyphicon glyphicon-cog"></span> Configurações</button>
+					<button class='btn btn-default' ng-click='createPost ()'><span class='glyphicon glyphicon-pencil'></span> Criar Post!</button>
+				</div>
+			</div>
+
+			<!-- Posts -->
+			<div class="row flex-row">
+				<div ng-repeat='post in allPosts track by $index'>
+					<div class='panel panel-default'>
+						{{post.name}}: {{post.content}}
+					</div>
+				</div>
+			</div>
+		<div>
+	</body>
+</html>
