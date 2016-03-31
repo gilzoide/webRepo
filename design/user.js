@@ -11,4 +11,12 @@ function User (nome, apelido, foto) {
 	this.foto = foto;
 	// usuário tem seus posts
 	this.posts = [];
+	// Adiciona um post
+	this.addPost = function (post) {
+		this.posts.push (post);
+	}
+	// GETTER pros posts
+	this.getPosts = function () {
+		return this.posts;
+	}
 }

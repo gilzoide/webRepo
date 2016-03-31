@@ -1,5 +1,5 @@
 <!--
-Trabalho 6 - Web - Angular + Multiplos Controllers
+Trabalho 7 - Web - Angular + Multiplos Controllers + Serviço
 Gil Barbosa Reis - 8532248
 João Gabriel Fontana da Conceição - 7979144
 -->
@@ -16,16 +16,16 @@ João Gabriel Fontana da Conceição - 7979144
 		<script src="meCu.js"></script>
 	</head>
 	<body ng-app='meCu'>
-		<div ng-controller='meCuController' class="container">
+		<div class="container">
 			<!-- Logo -->
 			<div class="page-header row">
 				<!-- Informações de usuário -->
 				<div ng-controller='UserInfoController'>
 					<div class='col-md-1'>
-						<img src='{{foto}}'>
+						<img src='{{user.foto}}'>
 					</div>
 					<div class='col-md-6'>
-						<h1>{{nome}} <small>{{apelido}}</small></h1>
+						<h1>{{user.nome}} <small>{{user.apelido}}</small></h1>
 					</div>
 				</div>
 				<!-- Botões de controle -->

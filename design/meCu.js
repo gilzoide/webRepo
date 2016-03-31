@@ -16,40 +16,31 @@ function getRandomPost () {
 
 (function (angular) {
 	var app = angular.module ('meCu', []);
+	var currentUser = new User ('Gil Barbosa Reis', 'Zumbi', 'cavalo.png');
 
-	// Controlador geral, com infos do usuário
-	app.controller ('meCuController', function ($scope) {
-		$scope.usuario = new User ('Gil Barbosa Reis', 'Zumbi', 'cavalo.png');
-
-		$scope.addPost = function (post) {
-			$scope.usuario.posts.push (post);
-		}
-
-		$scope.getPosts = function () {
-			return $scope.usuario.posts;
-		}
+	// Serviço que tem infos sobre o usuário atual (o loggado no sistema)
+	app.factory ('User', function () {
+		return currentUser;
 	});
 
 	// Controlador do cabeçalho, com infos do usuário
-	app.controller ('UserInfoController', function ($scope) {
-		$scope.nome = $scope.usuario.nome;
-		$scope.apelido = $scope.usuario.apelido;
-		$scope.foto = $scope.usuario.foto;
+	app.controller ('UserInfoController', function ($scope, User) {
+		$scope.user = User;
 	});
 
 	// Controlador dos botõezinhos do header
-	app.controller ('HeaderButtonController', function ($scope) {
+	app.controller ('HeaderButtonController', function ($scope, User) {
 		// Função que cria um post aleatório e põe lá na view
 		$scope.createPost = function () {
-			$scope.addPost ({
-				name : 'Post ' + $scope.getPosts ().length,
+			User.addPost ({
+				name : 'Post ' + User.getPosts ().length,
 				content : getRandomPost ()
 			});
 		};
 	});
 
 	// Controlador dos posts
-	app.controller ('PostController', function ($scope) {
-		$scope.allPosts = $scope.getPosts ();
+	app.controller ('PostController', function ($scope, User) {
+		$scope.allPosts = User.getPosts ();
 	});
 }) (window.angular);
