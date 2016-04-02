@@ -16,7 +16,10 @@ function getRandomPost () {
 
 (function (angular) {
 	var app = angular.module ('meCu', []);
-	var currentUser = new User ('Gil Barbosa Reis', 'Zumbi', 'cavalo.png');
+	var currentUser = User.fromObj (loginManager.getLogged ());
+	if (!currentUser) {
+		alert ("Nenhum usuário está loggado! =/");
+	}
 
 	// Serviço que tem infos sobre o usuário atual (o loggado no sistema)
 	app.factory ('User', function () {

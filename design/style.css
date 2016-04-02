@@ -12,3 +12,9 @@
 	height: 60px;
 	background-color: #f5f5f5;
 }
+
+/* Cabeçalho da tela de Login */
+.loginPage {
+	padding-left : 10;
+	background-color: #000;
+}
