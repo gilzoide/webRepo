@@ -1,0 +1,29 @@
+extends layout
+
+block title
+  title MeCu Login
+
+block styles
+  link(rel="stylesheet", href="styles/login.css")
+
+block body
+  // Logo do sistema
+  .jumbotron.loginPage
+    img.img-responsive.center-block(src='images/logo.png' alt='MeCuLogo')
+  // Login/Register
+  .container
+    .row
+      .col-md-6
+        form(action='/login' method='post')
+          .form-group
+            label Nome de usuário
+            input.form-control(name='username' placeholder='username')
+          button.btn.btn-default(type='submit') Logar!
+      .col-md-6
+        form(action='/register' method='post')
+          .form-group
+            label Nome de usuário
+            input.form-control(name='username' placeholder='username')
+          button.btn.btn-default(type='submit') Registrar!
+      
+      //button.btn.btn-primary(action='/loginDefault' method='post') Padrão
