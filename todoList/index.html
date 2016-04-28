@@ -1,0 +1,28 @@
+<!--
+Tarefa 8 - Lista de afazeres (Angular)
+Gil Barbosa Reis - 8532248
+João Gabriel Fontana - 7979144
+-->
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Tarefa 8 - Lista de Afazeres</title>
+		<meta charset='utf-8'>
+
+		<script src='angular.min.js'></script>
+		<script src='script.js'></script>
+	</head>
+	<body ng-app='todoListApp'>
+		<!-- Adiciona tarefa -->
+		<div ng-controller='TaskController'>
+			<input ng-model='novaTarefa'> <button ng-click='addTarefa ()'>Adicionar</button>
+		</div>
+
+		<!-- Vê e remove tarefas -->
+		<div ng-controller='ListController'>
+			<div ng-repeat='tarefa in list track by $index'>
+				<button ng-click='remove ($index)'>Feito</button> {{ tarefa }}<br>
+			</div>
+		</div>
+	</body>
+</html>
