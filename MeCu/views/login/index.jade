@@ -1,4 +1,4 @@
-extends layout
+extends ../layout
 
 block title
   title MeCu Login
@@ -15,15 +15,17 @@ block body
     .row
       .col-md-6
         form(action='/login' method='post')
-          .form-group
-            label Nome de usuário
-            input.form-control(name='username' placeholder='username')
+          .form-group.loginForm
+            label Login
+            input.form-control(name='username' placeholder='Apelido')
+            input.form-control(name='password' type='password' placeholder='Senha')
           button.btn.btn-default(type='submit') Logar!
       .col-md-6
         form(action='/register' method='post')
-          .form-group
-            label Nome de usuário
-            input.form-control(name='username' placeholder='username')
+          .form-group.loginForm
+            label Registrar
+            input.form-control(name='username' placeholder='Apelido')
+            input.form-control(name='password' type='password' placeholder='Senha')
           button.btn.btn-default(type='submit') Registrar!
       
       //button.btn.btn-primary(action='/loginDefault' method='post') Padrão

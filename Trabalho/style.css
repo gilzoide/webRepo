@@ -18,11 +18,3 @@
 	padding-left : 10;
 	background-color: #000;
 }
-
-.loginForm {
-	border-style: solid;
-	border-width: 1px;
-	border-radius: 4px;
-	border-color: #ddd;
-	padding: 10px;
-}

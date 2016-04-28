@@ -23,7 +23,11 @@
 module.exports.routes = {
 	// Home, o login
 	'/': {
-		view: 'login'
+		controller: 'login',
+		action: 'index'
+	},
+	'/500': {
+		view: '500'
 	},
 	'post /login': 'LoginController.login',
 	'post /register': 'LoginController.register',
