@@ -6,29 +6,37 @@
  */
 
 module.exports = {
+	// view principal, que usamos na hora da treta
+	view : 'login/index',
 	/// Index page do login, partiu view
 	index : function (req, res) {
 		res.view ();
 	},
 	/// Logar
 	login: function (req, res) {
+	},
+	/// Registrar
+	register: function (req, res) {
 		var username = req.param ('username');
+		if (!username) {
+			return res.json ({ error : 'Apelido é necessário para registrar' });
+		}
 		var password = req.param ('password');
+		if (!password) {
+			return res.json ({ error : 'Senha é necessária para registrar' });
+		}
 		var userJSON = {username: username, password: password};
 		User.create (userJSON)
 				.exec (function (err, created) {
 					if (err) {
-						res.redirect ('/500');
+						return res.json ({error : 'Usuário "' + username + '" já existe!'});
 					}
 					else {
+						created.save ();
 						console.log ("Usuário criado: " + created.username);
-						res.json (userJSON);
+						return res.json ({success : 'Usuário criado com sucesso!'});
 					}
 				});
-	},
-	/// Registrar
-	register: function (req, res) {
-		console.log ('Register: ' + req.param ('username'));
 	},
 	/// Logar com usuário padrão (bom pra testar
 	loginDefault: function (req, res) {
