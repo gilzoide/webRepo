@@ -21,18 +21,10 @@
  */
 
 module.exports.routes = {
-	// Home, o login
 	'/': {
-		controller: 'login',
-		action: 'index',
+		view: 'index'
 	},
-	'/home': {
-		view: 'userPage/home',
-	},
-	'/500': {
-		view: '500'
-	},
-	'post /login': 'LoginController.login',
-	'post /register': 'LoginController.register',
-	'post /loginDefault' : 'LoginController.loginDefault'
+	'post /todo': 'Todo.add',
+	'get /todo': 'Todo.get',
+	'post /todo/remove': 'Todo.remove',
 };

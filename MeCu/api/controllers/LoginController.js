@@ -10,10 +10,11 @@ module.exports = {
 	view : 'login/index',
 	/// Index page do login, partiu view
 	index : function (req, res) {
-		res.view ();
+		return res.view ();
 	},
 	/// Logar
 	login: function (req, res) {
+		return res.redirect ('/home');
 	},
 	/// Registrar
 	register: function (req, res) {

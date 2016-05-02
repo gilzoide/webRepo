@@ -1,0 +1,33 @@
+// Tarefa 9 - Lista de afazeres (Sails + Angular)
+// Gil Barbosa Reis - 8532248
+// João Gabriel Fontana - 7979144
+
+extends layout
+
+block title
+  title Tarefa 9 - Lista de Afazeres no Servidor
+
+block scripts
+  script(src='js/script.js')
+
+block body
+  .container(ng-app='todoListApp')
+    .page-header
+      h2 Tarefa 9 - Lista de afazeres (Sails + Angular)
+    .row(ng-controller='TaskController')
+      // Adiciona tarefa
+      .col-md-6
+        .input-group
+          input.form-control(ng-model='novaTarefa' placeholder='Tarefa')
+          .input-group-btn
+            button.btn.btn-default(ng-click='addTarefa ()') Adicionar
+      .col-md-6
+        .alert.alert-danger(ng-if='error') {{ error }}
+        .alert.alert-success(ng-if='success') {{ success }}
+
+    // Vê e remove tarefas
+    div(ng-controller='ListController')
+      div(ng-repeat='tarefa in list')
+        button.btn.btn-default(ng-click='remove (tarefa.id)'): span.glyphicon.glyphicon-remove
+        |  {{ tarefa.what }}
+        

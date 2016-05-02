@@ -7,7 +7,6 @@ block styles
   link(rel='stylesheet', href='styles/login.css')
 
 block scripts
-  script(src='js/dependencies/angular.min.js')
   script(src='js/LoginApp.js')
 
 block body
@@ -24,7 +23,9 @@ block body
             label Login
             input.form-control(ng-model='user.username' placeholder='Apelido')
             input.form-control(ng-model='user.password' type='password' placeholder='Senha')
-          button.btn.btn-default(ng-click='login ()') Logar!
+            // Mostra erro, se tiver
+            .alert.alert-danger(ng-if='error') {{ error }}
+            button.btn.btn-default(ng-click='login ()') Logar!
       // Register container
       .col-md-6(ng-controller='RegisterController')
         form
@@ -35,7 +36,7 @@ block body
             // Mostra erro, se tiver
             .alert.alert-success(ng-if='success') {{ success }}
             .alert.alert-danger(ng-if='error') {{ error }}
-          button.btn.btn-default(ng-click='register ()') Registrar!
+            button.btn.btn-default(ng-click='register ()') Registrar!
       
       //button.btn.btn-primary(action='/loginDefault' method='post') Padrão
 
