@@ -1,5 +1,13 @@
 (function (angular) {
-	var app = angular.module ('todoListApp', []);
+	var app = angular.module ('todoListApp', ['ngRoute']);
+
+	// Configuração de rotas do Angular
+	app.config (function ($routeProvider, $locationProvider) {
+		// no '/' (home) roda o index
+		$routeProvider.when ('/', {
+			templateUrl: '/templates/index.html',
+		});
+	});
 
 	// Serviço que tem infos sobre a lista em si
 	app.factory ('List', function ($rootScope, $http) {
