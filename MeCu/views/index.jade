@@ -1,0 +1,15 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    title MeCu
+    // CSS: bootstrap
+    link(rel="stylesheet", href="styles/bootstrap.min.css")
+    // JS: angular
+    script(src='js/dependencies/angular.min.js')
+    script(src='js/dependencies/angular-route.min.js')
+    script(src='js/LoginApp.js')
+    script(src='js/home.js')
+
+  body(ng-app='MeCu')
+    div(ng-view)

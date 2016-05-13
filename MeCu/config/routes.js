@@ -23,16 +23,14 @@
 module.exports.routes = {
 	// Home, o login
 	'/': {
-		controller: 'login',
-		action: 'index',
-	},
-	'/home': {
-		view: 'userPage/home',
+		view: 'index'
 	},
 	'/500': {
 		view: '500'
 	},
+	// login/register
 	'post /login': 'LoginController.login',
 	'post /register': 'LoginController.register',
-	'post /loginDefault' : 'LoginController.loginDefault'
+	// 
+	'get /userinfo': 'HomeController.getLogged',
 };

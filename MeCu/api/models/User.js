@@ -15,7 +15,11 @@ module.exports = {
 		password: {
 			type: 'string',
 			required: true
-		}
+		},
+		posts: {
+			type: 'array',
+			defaultsTo: [],
+		},
 	}
 };
 

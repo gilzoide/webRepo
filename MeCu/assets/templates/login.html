@@ -1,0 +1,46 @@
+<div>
+	<link rel='stylesheet' href='styles/login.css'>
+
+	<!-- Logo do sistema -->
+	<div class='jumbotron loginPage'>
+		<img class='img-responsive center-block' src='images/logo.png' alt='MeCuLogo'>
+	</div>
+	<div class='container'>
+		<!-- Login/Register -->
+		<div class='row'>
+			<!-- Login container -->
+			<div class='col-md-6' ng-controller='LoginController'>
+				<form>
+					<div class='form-group loginForm'>
+						<label>Login</label>
+						<input class='form-control' ng-model='user.username' placeholder='Apelido'>
+						<input class='form-control' ng-model='user.password' type='password' placeholder='Senha'>
+						<!-- Mostra erro, se tiver -->
+						<div class='alert alert-danger' ng-if='error'>
+							{{ error }}
+						</div>
+						<button class='btn btn-default' ng-click='login ()'>Logar!</button>
+					</div>
+				</form>
+			</div>
+			<!-- Register container -->
+			<div class='col-md-6' ng-controller='RegisterController'>
+				<form>
+					<div class='form-group loginForm'>
+						<label>Registrar</label>
+						<input class='form-control' ng-model='user.username' placeholder='Apelido'>
+						<input class='form-control' ng-model='user.password' type='password' placeholder='Senha'>
+						<!-- Mostra erro, se tiver -->
+						<div class='alert alert-success' ng-if='success'>
+							{{ success }}
+						</div>
+						<div class='alert alert-danger' ng-if='error'>
+							{{ error }}
+						</div>
+						<button class='btn btn-default' ng-click='register ()'>Registrar!</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

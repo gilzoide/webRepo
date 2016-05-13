@@ -1,0 +1,32 @@
+<div>
+	<div class='container'>
+		<!-- Infos de usuário -->
+		<div class='page-header row'>
+			<!-- Informações de usuário -->
+			<div ng-controller='UserInfoController'>
+				<div class='col-md-1'>
+					<img class='img-responsive center-block' src='images/{{ user.foto }}' alt='Foto do usuário'>
+				</div>
+				<div class='col-md-6'>
+					<h1>{{ user.username }} <small>{{ user.name }}</small></h1>
+				</div>
+			</div>
+
+			<!-- Botões de controle -->
+     	<div class='btn-group col-md-4' ng-controller='HeaderButtonController' role="group" aria-label="...">
+				<button class='btn btn-default'><span class='glyphicon glyphicon-home'></span> Home </button>
+				<button class='btn btn-default'><span class='glyphicon glyphicon-cog'></span> Configurações </button>
+				<button class='btn btn-default' ng-click='createPost ()'><span class='glyphicon glyphicon-pencil'></span> Criar Post! </button>
+			</div>
+		</div>
+
+		<!-- Posts -->
+		<div class='row flex-row' ng-controller='PostController'>
+			<div ng-repeat='post in allPosts track by $index'>
+				<div class='panel panel-default'>
+					{{ post.name }}: {{ post.content }}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

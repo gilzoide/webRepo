@@ -6,15 +6,29 @@
  */
 
 module.exports = {
-	// view principal, que usamos na hora da treta
-	view : 'login/index',
-	/// Index page do login, partiu view
-	index : function (req, res) {
-		return res.view ();
-	},
 	/// Logar
 	login: function (req, res) {
-		return res.redirect ('/home');
+		var username = req.param ('username');
+		var password = req.param ('password');
+		User.findOneByUsername (username, function (err, user) {
+			if (err) {
+				return res.json ({ error: 'Falha ao logar =/' });
+			}
+			else if (!user) {
+				return res.json ({ error: 'Usuário não encontrado =/' });
+			}
+			else if (user.password !== password) {
+				return res.json ({ error: 'Senha incorreta =/' });
+			}
+			// login correto!
+			else {
+				// cadastra usuário loggado
+				req.session.userId = user.id;
+				req.session.authenticated = true;
+				// e manda pra home
+				return res.json ({ user: user, path: '/home' });
+			}
+		});
 	},
 	/// Registrar
 	register: function (req, res) {
@@ -26,22 +40,17 @@ module.exports = {
 		if (!password) {
 			return res.json ({ error : 'Senha é necessária para registrar' });
 		}
-		var userJSON = {username: username, password: password};
-		User.create (userJSON)
-				.exec (function (err, created) {
-					if (err) {
-						return res.json ({error : 'Usuário "' + username + '" já existe!'});
-					}
-					else {
-						created.save ();
-						console.log ("Usuário criado: " + created.username);
-						return res.json ({success : 'Usuário criado com sucesso!'});
-					}
-				});
+		var userJSON = { username: username, password: password };
+		User.create (userJSON).exec (function (err, created) {
+			if (err) {
+				return res.json ({ error : 'Usuário "' + username + '" já existe!' });
+			}
+			else {
+				created.save ();
+				console.log ("Usuário criado: " + created.username);
+				return res.json ({ success : 'Usuário criado com sucesso!' });
+			}
+		});
 	},
-	/// Logar com usuário padrão (bom pra testar
-	loginDefault: function (req, res) {
-		console.log ('Register: eu =]');
-	}
 };
 
