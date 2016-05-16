@@ -31,6 +31,8 @@ module.exports.routes = {
 	// login/register
 	'post /login': 'LoginController.login',
 	'post /register': 'LoginController.register',
-	// 
+	// pega infos do usuário loggado
 	'get /userinfo': 'HomeController.getLogged',
+	// logout!
+	'post /logout': 'HomeController.logout',
 };

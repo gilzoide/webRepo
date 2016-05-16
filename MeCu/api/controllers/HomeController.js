@@ -21,5 +21,12 @@ module.exports = {
 			}
 		});
 	},
+	// sai do sistema
+	logout: function (req, res) {
+		req.session.userId = undefined;
+		req.session.authenticated = false;
+		// manda pro '/'
+		res.json ({ path: '/' });
+	},
 };
 

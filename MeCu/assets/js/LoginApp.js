@@ -31,7 +31,7 @@ app.config (function ($routeProvider) {
 });
 
 // Login Controller
-app.controller ('LoginController', function ($scope, $http, $location, $rootScope) {
+app.controller ('LoginController', function ($scope, $http, $location) {
 	$scope.user = {};
 	
 	$scope.login = function () {
@@ -41,8 +41,8 @@ app.controller ('LoginController', function ($scope, $http, $location, $rootScop
 				$scope.success = false;
 			}
 			else {
+				// redireciona pro '/home'
 				$location.path (res.data.path);
-				$rootScope.$emit ('login', res.data.user);
 			}
 		},
 		function err (res) {

@@ -6,11 +6,24 @@ app.controller ('UserInfoController', function ($scope, UserInfo) {
 });
 
 // Controller de botões de controle
-app.controller ('HeaderButtonController', function ($scope, $http) {
+app.controller ('HeaderButtonController', function ($scope, $http, $location) {
 	$scope.createPost = function () {
 	};
+
+	$scope.logout = function () {
+		$http.post ('/logout').then (function yes (res) {
+			$location.path (res.data.path);
+		},
+		function err (res) {
+			$scope.error = 'Erro no logout =S';
+		});
+	}
 });
-// 
-app.controller ('PostController', function ($scope) {
-	$scope.allPosts = [];
+
+// Posts, pra escrevê-los
+app.controller ('PostController', function ($scope, $timeout) {
+	// espera 1 segundo, pra já ter info sobre o usuário
+	$timeout (function () {
+		$scope.allPosts = $scope.user.posts;
+	}, 1000);
 });

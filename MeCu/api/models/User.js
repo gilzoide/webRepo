@@ -16,6 +16,10 @@ module.exports = {
 			type: 'string',
 			required: true
 		},
+		foto: {
+			type: 'string',
+			defaultsTo: 'fotoPadrao.png'
+		},
 		posts: {
 			type: 'array',
 			defaultsTo: [],

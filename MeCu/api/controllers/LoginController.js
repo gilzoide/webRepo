@@ -26,7 +26,7 @@ module.exports = {
 				req.session.userId = user.id;
 				req.session.authenticated = true;
 				// e manda pra home
-				return res.json ({ user: user, path: '/home' });
+				return res.json ({ path: '/home' });
 			}
 		});
 	},
