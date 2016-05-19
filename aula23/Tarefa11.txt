@@ -1,0 +1,3 @@
+Não foi possível criar um Pet com 'owner = 900', pois o 'model' referenciado
+deve ter um valor existente. Essa condição é verificada através do adaptador
+de BD utilizado (no caso, o Postgres), usando Chaves Estrangeiras.

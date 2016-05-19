@@ -1,0 +1,1 @@
+FATAL:  não pôde criar arquivo de bloqueio "/run/postgresql/.s.PGSQL.5432.lock": Arquivo ou diretório não encontrado
