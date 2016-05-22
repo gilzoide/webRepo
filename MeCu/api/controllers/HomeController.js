@@ -9,7 +9,7 @@ module.exports = {
 	// Pega informações do usuário loggado. Precisa ter autenticado
 	getLogged: function (req, res) {
 		var id = req.session.userId;
-		User.findOneById (id, function (err, user) {
+		User.findOneById (id).populate ('posts').exec (function (err, user) {
 			if (err) {
 				return res.json ({ error: 'Falha ao pegar infos de usuário =/' });
 			}
@@ -21,12 +21,34 @@ module.exports = {
 			}
 		});
 	},
+
 	// sai do sistema
 	logout: function (req, res) {
 		req.session.userId = undefined;
 		req.session.authenticated = false;
 		// manda pro '/'
-		res.json ({ path: '/' });
+		return res.json ({ path: '/' });
+	},
+
+	// Adiciona um post ao usuário loggado
+	post: function (req, res) {
+		var post = req.param ('post');
+		if (!post) {
+			return res.json ({ error: 'Porra, escreve algo senão não rola' });
+		}
+		var id = req.session.userId;
+		Post.create ({ conteudo: post, user: id }).exec (function (err, newPost) {
+			if (err) {
+				return res.json ({ error: 'Falha ao criar post =/' });
+			}
+			else if (!newPost) {
+				return res.json ({ error: 'Usuário tá mesmo loggado?' });
+			}
+			else {
+				newPost.save ();
+				return res.json ({ post: newPost });
+			}
+		});
 	},
 };
 

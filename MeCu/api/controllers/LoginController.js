@@ -30,6 +30,7 @@ module.exports = {
 			}
 		});
 	},
+
 	/// Registrar
 	register: function (req, res) {
 		var username = req.param ('username');

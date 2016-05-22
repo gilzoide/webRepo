@@ -35,4 +35,7 @@ module.exports.routes = {
 	'get /userinfo': 'HomeController.getLogged',
 	// logout!
 	'post /logout': 'HomeController.logout',
+
+	// post
+	'post /post': 'HomeController.post',
 };

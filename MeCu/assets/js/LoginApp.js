@@ -50,6 +50,7 @@ app.controller ('LoginController', function ($scope, $http, $location) {
 		});
 	}
 });
+
 // Register Controller
 app.controller ('RegisterController', function ($scope, $http) {
 	$scope.user = {};
