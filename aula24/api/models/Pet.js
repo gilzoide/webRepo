@@ -9,13 +9,19 @@ module.exports = {
 	attributes: {
 		name: {
 			type: 'string',
+			required: true,
+			notNull: true,
 		},
 		color: {
 			type: 'string',
+			required: true,
+			notNull: true,
+
 		},
 		owner: {
 			model: 'user',
-			unique: true,
+			required: true,
+			notNull: true,
 		},
 	}
 };

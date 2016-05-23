@@ -1,0 +1,17 @@
+João Gabriel Fontana - 7979144
+Gil Barbosa Reis - 8532248
+
+
+Um novo banco de dados foi criado para essa tarefa.
+
+Comando SQL que fazem com que isso tudo funcione direito:
+```
+ALTER TABLE pet ADD CONSTRAINT pet_fkey
+FOREIGN KEY (owner) REFERENCES "user" (id) ON
+UPDATE CASCADE ON DELETE RESTRICT;
+```
+
+Registro que não é criado (no ORM):
+```
+{ name: 'Dog', color: 'Black', owner: 20 }
+```

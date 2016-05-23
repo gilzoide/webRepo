@@ -1,8 +1,6 @@
 // Controller de informações de usuário
 app.controller ('UserInfoController', function ($scope, UserInfo) {
-	UserInfo ().then (function (user) {
-		$scope.user = user;
-	});
+	UserInfo ($scope);
 });
 
 // Controller de botões de controle
@@ -26,10 +24,13 @@ app.filter ('reverse', function () {
 
 // Posts, pra escrevê-los
 app.controller ('PostController', function ($scope, $timeout, $http) {
-	$scope.allPosts = []
+	// variáveis temporárias, enquanto o trem não carregou os posts ainda
+	$scope.allPosts = [];
+
 	// espera 1 segundo, pra já ter info sobre o usuário
-	$timeout (function () {
+	$scope.$on ('gotUser', function () {
 		$scope.allPosts = $scope.user.posts;
+		$scope.carregando = false;
 		console.log ($scope.user);
 
 		// nova postagem!
@@ -44,7 +45,7 @@ app.controller ('PostController', function ($scope, $timeout, $http) {
 				}
 			});
 		};
-	}, 1000);
+	});
 
 
 });

@@ -34,7 +34,7 @@ module.exports = {
 	post: function (req, res) {
 		var post = req.param ('post');
 		if (!post) {
-			return res.json ({ error: 'Porra, escreve algo senão não rola' });
+			return res.json ({ error: 'Porra, escreve algo senão não tem post' });
 		}
 		var id = req.session.userId;
 		Post.create ({ conteudo: post, user: id }).exec (function (err, newPost) {

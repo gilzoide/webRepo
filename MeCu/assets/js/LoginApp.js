@@ -7,9 +7,13 @@ var app = angular.module ('MeCu', ['ngRoute']);
 // @note que isso só funciona depois de um 'login' bem sucedido, já que o ID de
 //  usuário fica na sessão de requisições http
 app.factory ('UserInfo', function ($http) {
-	return function () {
+	// recebe escopo local, que adiciona o usuário como 'scope.user' e já manda
+	// um evento pros filhos. Como filhos têm acesso ao escopo pai, tá tudo no
+	// esquema xD
+	return function (scope) {
 		return $http.get ('/userinfo').then (function (res) {
-			return res.data;
+			scope.user = res.data;
+			scope.$broadcast ('gotUser');
 		});
 	};
 });

@@ -9,9 +9,14 @@ module.exports = {
 	attributes: {
 		name: {
 			type: 'string',
+			required: true,
+			notNull: true,
+			unique: true,
 		},
 		age: {
 			type: 'integer',
+			required: true,
+			notNull: true,
 		},
 		pet: {
 			collection: 'pet',
