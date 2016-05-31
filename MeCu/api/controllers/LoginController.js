@@ -41,7 +41,7 @@ module.exports = {
 		if (!password) {
 			return res.json ({ error : 'Senha é necessária para registrar' });
 		}
-		var userJSON = { username: username, password: password };
+		var userJSON = { username: username, nome: username, password: password };
 		User.create (userJSON).exec (function (err, created) {
 			if (err) {
 				return res.json ({ error : 'Usuário "' + username + '" já existe!' });

@@ -50,5 +50,41 @@ module.exports = {
 			}
 		});
 	},
+
+	// Apaga um post
+	apagaPost: function (req, res) {
+		var postId = req.param ('id');
+		var id = req.session.userId;
+
+		Post.destroy ({ id: postId, user: id }).exec (function (err) {
+			if (err) {
+				return res.json ({ error: 'Apaga post: deu não. És o dono do post?' });
+			}
+			else {
+				return res.json ({ success: 'Post apagado!' });
+			}
+		});
+	},
+
+	// Atualiza um post
+	atualizaPost: function (req, res) {
+		var postId = req.param ('id');
+		var conteudo = req.param ('novoConteudo');
+		if (!conteudo) {
+			return res.json ({ error: 'Post necessita conteúdo!' });
+		}
+
+		var id = req.session.userId;
+
+		Post.update ({ id: postId, user: id }, { conteudo: conteudo }).exec (function (err, updated) {
+			if (err) {
+				return res.json ({ error: 'Atualiza post: deu não. És o dono do post?' });
+			}
+			else {
+				updated[0].save ();
+				return res.json ({ success: 'Post atualizado!' });
+			}
+		});
+	},
 };
 

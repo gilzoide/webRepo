@@ -38,4 +38,6 @@ module.exports.routes = {
 
 	// post
 	'post /post': 'HomeController.post',
+	'post /post/update': 'HomeController.atualizaPost',
+	'post /post/remove': 'HomeController.apagaPost',
 };

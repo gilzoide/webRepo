@@ -16,7 +16,7 @@
 						<input class='form-control' ng-model='user.username' placeholder='Apelido'>
 						<input class='form-control' ng-model='user.password' type='password' placeholder='Senha'>
 						<!-- Mostra erro, se tiver -->
-						<div class='alert alert-danger' ng-if='error'>
+						<div class='alert alert-danger' ng-show='error'>
 							{{ error }}
 						</div>
 						<button class='btn btn-default' ng-click='login ()'>Logar!</button>
@@ -31,10 +31,10 @@
 						<input class='form-control' ng-model='user.username' placeholder='Apelido'>
 						<input class='form-control' ng-model='user.password' type='password' placeholder='Senha'>
 						<!-- Mostra erro, se tiver -->
-						<div class='alert alert-success' ng-if='success'>
+						<div class='alert alert-success' ng-show='success'>
 							{{ success }}
 						</div>
-						<div class='alert alert-danger' ng-if='error'>
+						<div class='alert alert-danger' ng-show='error'>
 							{{ error }}
 						</div>
 						<button class='btn btn-default' ng-click='register ()'>Registrar!</button>

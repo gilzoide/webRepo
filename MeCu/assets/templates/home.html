@@ -7,7 +7,7 @@
 				<img class='img-responsive center-block' src='images/{{ user.foto }}' alt='Foto do usuário'>
 			</div>
 			<div class='col-md-6'>
-				<h1>{{ user.username }} <small>{{ user.name }}</small></h1>
+				<h1>{{ user.username }} <small>{{ user.nome }}</small></h1>
 			</div>
 
 			<!-- Botões de controle -->
@@ -24,18 +24,30 @@
 			<div class='input-group'>
 				<input class='form-control' ng-model='newPost' placeholder="Conte-nos algo">
 				<span class='input-group-btn'>
-					<button class='btn btn-default' ng-click='createPost (newPost)'><span class='glyphicon glyphicon-pencil'></span></button>
+					<button class='btn btn-default' ng-click='createPost (newPost)'><span class='glyphicon glyphicon-ok'></span></button>
+					<button class='btn btn-default' ng-click='marcaEditar (!podeEditar)'><span class='glyphicon glyphicon-pencil'></span></button>
+					<button class='btn btn-danger' ng-click='marcaMorte (!podeApagar)'><span class='glyphicon glyphicon-remove'></span></button>
 				</span>
 			</div>
 			<!-- erro -->
-			<div class='alert alert-danger' ng-if='error'>
+			<div class='alert alert-danger' ng-show='error'>
 				{{ error }}
+			</div>
+			<!-- sucesso -->
+			<div class='alert alert-success' ng-show='success'>
+				{{ success }}
 			</div>
 			<!-- printa posts, ao contrário (mais novo mais acima) -->
 			<div class='row flex-row'>
 				<div ng-repeat='post in allPosts | reverse'>
 					<div class='panel panel-default'>
-						{{ post.id }}: {{ post.conteudo }}
+						<!-- botão de apagar, só se puder apagar -->
+						<button class='btn btn-danger' ng-click='mataPost (post.id, $index)' ng-show='podeApagar'><span class='glyphicon glyphicon-remove'></span></button>
+						<!-- botão de salvar edição, só se puder editar -->
+						<button class='btn btn-default' ng-click='atualizaPost (post)' ng-show='podeEditar'><span class='glyphicon glyphicon-ok'></span></button>
+						<input type='text' ng-model='post.conteudo' ng-show='podeEditar'>
+						<!-- readonly -->
+						<span ng-hide='podeEditar'>{{ post.conteudo }}</span>
 					</div>
 				</div>
 			</div>

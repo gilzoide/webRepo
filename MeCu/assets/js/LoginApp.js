@@ -18,6 +18,18 @@ app.factory ('UserInfo', function ($http) {
 	};
 });
 
+// Função (xupa serviço) padrão que diz quando deu erro numa requisição HTTP
+// dentro de controladores, escrevendo mensagens de erro
+//
+// @param funcName Nome da função que chamou a requisição.
+function deuBosta (funcName) {
+	return function (res) {
+		errMsg = '"' + funcName + "\" deu bosta!";
+		$scope.error = errMsg;
+		console.error (errMsg);
+	};
+}
+
 // Rotas, pra sincronizar o ng-view
 app.config (function ($routeProvider) {
 	// no '/', rola 'login'
@@ -39,6 +51,13 @@ app.controller ('LoginController', function ($scope, $http, $location) {
 	$scope.user = {};
 	
 	$scope.login = function () {
+		// valor padrão, pra ficar fácil testar
+		if (! ($scope.user.username || $scope.user.password)) {
+			$scope.user = {
+				username: 'a',
+				password: 'a',
+			}
+		}
 		$http.post ('/login', $scope.user).then (function yes (res) {
 			if (res.data.error) {
 				$scope.error = res.data.error;
@@ -48,10 +67,7 @@ app.controller ('LoginController', function ($scope, $http, $location) {
 				// redireciona pro '/home'
 				$location.path (res.data.path);
 			}
-		},
-		function err (res) {
-			$scope.error = 'Não consegui dar POST =S';
-		});
+		}, deuBosta ('Login'));
 	}
 });
 
