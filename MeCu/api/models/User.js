@@ -10,7 +10,6 @@ module.exports = {
 		username: {
 			type: 'string',
 			required: true,
-			unique: true,
 		},
 		nome: {
 			type: 'string',
@@ -23,6 +22,11 @@ module.exports = {
 		foto: {
 			type: 'string',
 			defaultsTo: 'fotoPadrao.png'
+		},
+		// atributo que marca se usuário "existe"
+		ativo: {
+			type: 'boolean',
+			defaultsTo: true,
 		},
 		posts: {
 			collection: 'post',

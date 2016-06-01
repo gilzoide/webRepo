@@ -21,5 +21,9 @@ module.exports.policies = {
 	// só entra na home se tiver loggado
 	HomeController: {
 		'*' : 'sessionAuth',
+	},
+	// configurar usuário também
+	ConfigController: {
+		'*' : 'sessionAuth',
 	}
 };

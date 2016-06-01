@@ -1,3 +1,5 @@
+/// Script de preparação do Angular e panz
+
 var app = angular.module ('MeCu', ['ngRoute']);
 
 // Serviço que pega as informações do usuário atual
@@ -40,53 +42,14 @@ app.config (function ($routeProvider) {
 	$routeProvider.when ('/home', {
 		templateUrl: '/templates/home.html',
 	});
+	// no '/config', rola 'config'
+	$routeProvider.when ('/config', {
+		templateUrl: '/templates/config.html',
+	});
 	// 404!
 	$routeProvider.otherwise ({
 		templateUrl: '/templates/404.html',
 	});
 });
 
-// Login Controller
-app.controller ('LoginController', function ($scope, $http, $location) {
-	$scope.user = {};
-	
-	$scope.login = function () {
-		// valor padrão, pra ficar fácil testar
-		if (! ($scope.user.username || $scope.user.password)) {
-			$scope.user = {
-				username: 'a',
-				password: 'a',
-			}
-		}
-		$http.post ('/login', $scope.user).then (function yes (res) {
-			if (res.data.error) {
-				$scope.error = res.data.error;
-				$scope.success = false;
-			}
-			else {
-				// redireciona pro '/home'
-				$location.path (res.data.path);
-			}
-		}, deuBosta ('Login'));
-	}
-});
 
-// Register Controller
-app.controller ('RegisterController', function ($scope, $http) {
-	$scope.user = {};
-
-	$scope.register = function () {
-		$http.post ('/register', $scope.user).then (function yes (res) {
-			if (res.data.error) {
-				$scope.error = res.data.error;
-				$scope.success = false;
-			}
-			else {
-				$scope.error = false;
-				$scope.success = res.data.success;
-			}
-		}, function err (res) {
-			$scope.error = 'Não consegui dar POST =S';
-		});
-	}
-});

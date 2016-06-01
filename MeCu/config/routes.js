@@ -31,6 +31,8 @@ module.exports.routes = {
 	// login/register
 	'post /login': 'LoginController.login',
 	'post /register': 'LoginController.register',
+	// morte =/
+	'post /meApaga': 'ConfigController.meApaga',
 	// pega infos do usuário loggado
 	'get /userinfo': 'HomeController.getLogged',
 	// logout!

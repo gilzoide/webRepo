@@ -8,11 +8,12 @@ app.controller ('HeaderButtonController', function ($scope, $http, $location) {
 	$scope.logout = function () {
 		$http.post ('/logout').then (function yes (res) {
 			$location.path (res.data.path);
-		},
-		function err (res) {
-			$scope.error = 'Erro no logout =S';
-		});
-	}
+		}, deuBosta ('Logout'));
+	};
+
+	$scope.configura = function () {
+		$location.path ('/config');
+	};
 });
 
 // Filtro que inverte um array no ng-repeat

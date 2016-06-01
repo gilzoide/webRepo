@@ -10,7 +10,7 @@ module.exports = {
 	login: function (req, res) {
 		var username = req.param ('username');
 		var password = req.param ('password');
-		User.findOneByUsername (username, function (err, user) {
+		User.findOne ({ username: username, ativo: true }, function (err, user) {
 			if (err) {
 				return res.json ({ error: 'Falha ao logar =/' });
 			}
@@ -37,19 +37,26 @@ module.exports = {
 		if (!username) {
 			return res.json ({ error : 'Apelido é necessário para registrar' });
 		}
+
 		var password = req.param ('password');
 		if (!password) {
 			return res.json ({ error : 'Senha é necessária para registrar' });
 		}
-		var userJSON = { username: username, nome: username, password: password };
-		User.create (userJSON).exec (function (err, created) {
-			if (err) {
+
+		// procura usuário primeiro, reclama se existir
+		User.findOne ({ username: username, ativo: true }, function (err, user) {
+			// achou um válido, reclama
+			if (user) {
 				return res.json ({ error : 'Usuário "' + username + '" já existe!' });
 			}
+			// se não encontrou usuário (ou achou um inativo), cria
 			else {
-				created.save ();
-				console.log ("Usuário criado: " + created.username);
-				return res.json ({ success : 'Usuário criado com sucesso!' });
+				var userJSON = { username: username, nome: username, password: password };
+				User.create (userJSON).exec (function (err, created) {
+					created.save ();
+					console.log ("Usuário criado: " + created.username);
+					return res.json ({ success : 'Usuário criado com sucesso!' });
+				});
 			}
 		});
 	},
