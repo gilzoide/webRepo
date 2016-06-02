@@ -7,27 +7,31 @@
 
 module.exports = {
 	attributes: {
-		username: {
+		apelido: {
 			type: 'string',
 			required: true,
+		},
+		senha: {
+			type: 'string',
+			required: true
 		},
 		nome: {
 			type: 'string',
 			required: true,
 		},
-		password: {
+		descricao: {
 			type: 'string',
-			required: true
 		},
 		foto: {
 			type: 'string',
-			defaultsTo: 'fotoPadrao.png'
+			defaultsTo: 'images/fotoPadrao.png'
 		},
 		// atributo que marca se usuário "existe"
 		ativo: {
 			type: 'boolean',
 			defaultsTo: true,
 		},
+		// posts que usuário postou =P
 		posts: {
 			collection: 'post',
 			via: 'user',

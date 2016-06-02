@@ -8,16 +8,16 @@
 module.exports = {
 	/// Logar
 	login: function (req, res) {
-		var username = req.param ('username');
-		var password = req.param ('password');
-		User.findOne ({ username: username, ativo: true }, function (err, user) {
+		var apelido = req.param ('apelido');
+		var senha = req.param ('senha');
+		User.findOne ({ apelido: apelido, ativo: true }, function (err, user) {
 			if (err) {
 				return res.json ({ error: 'Falha ao logar =/' });
 			}
 			else if (!user) {
 				return res.json ({ error: 'Usuário não encontrado =/' });
 			}
-			else if (user.password !== password) {
+			else if (user.senha !== senha) {
 				return res.json ({ error: 'Senha incorreta =/' });
 			}
 			// login correto!
@@ -33,28 +33,28 @@ module.exports = {
 
 	/// Registrar
 	register: function (req, res) {
-		var username = req.param ('username');
-		if (!username) {
+		var apelido = req.param ('apelido');
+		if (!apelido) {
 			return res.json ({ error : 'Apelido é necessário para registrar' });
 		}
 
-		var password = req.param ('password');
-		if (!password) {
+		var senha = req.param ('senha');
+		if (!senha) {
 			return res.json ({ error : 'Senha é necessária para registrar' });
 		}
 
 		// procura usuário primeiro, reclama se existir
-		User.findOne ({ username: username, ativo: true }, function (err, user) {
+		User.findOne ({ apelido: apelido, ativo: true }, function (err, user) {
 			// achou um válido, reclama
 			if (user) {
-				return res.json ({ error : 'Usuário "' + username + '" já existe!' });
+				return res.json ({ error : 'Usuário "' + apelido + '" já existe!' });
 			}
 			// se não encontrou usuário (ou achou um inativo), cria
 			else {
-				var userJSON = { username: username, nome: username, password: password };
+				var userJSON = { apelido: apelido, nome: apelido, senha: senha };
 				User.create (userJSON).exec (function (err, created) {
 					created.save ();
-					console.log ("Usuário criado: " + created.username);
+					console.log ("Usuário criado: " + created.apelido);
 					return res.json ({ success : 'Usuário criado com sucesso!' });
 				});
 			}

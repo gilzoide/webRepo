@@ -3,17 +3,20 @@
 	<div class='page-header row'>
 		<!-- Informações de usuário -->
 		<div class='col-md-1'>
-			<img class='img-responsive center-block' src='images/{{ user.foto }}' alt='Foto do usuário'>
+			<img class='img-responsive center-block' src='{{ user.foto }}' alt='Foto do usuário'>
 		</div>
 		<div class='col-md-6'>
-			<h1>{{ user.username }} <small>{{ user.nome }}</small></h1>
+			<h1>{{ user.nome }} <small>{{ user.apelido }}</small></h1>
 		</div>
 
 		<!-- Botões de controle -->
-		<div class='btn-group col-md-4' ng-controller='HeaderButtonController' role="group" aria-label="...">
+		<div class='btn-group col-md-4 col-md-offset-1' ng-controller='HeaderButtonController' role="group" aria-label="...">
 			<button class='btn btn-default'><span class='glyphicon glyphicon-home'></span></button>
 			<button class='btn btn-default' ng-click='configura ()'><span class='glyphicon glyphicon-cog'></span> Configurações </button>
 			<button class='btn btn-default' ng-click='logout ()'><span class='glyphicon glyphicon-off'></span></button>
+		</div>
+		<div class='col-md-12'>
+			{{ user.descricao }}
 		</div>
 	</div>
 
@@ -29,24 +32,30 @@
 			</span>
 		</div>
 		<!-- erro -->
-		<div class='alert alert-danger' ng-show='error'>
+		<div class='alert alert-danger alert-dismissible' ng-show='error'>
 			{{ error }}
 		</div>
 		<!-- sucesso -->
-		<div class='alert alert-success' ng-show='success'>
+		<div class='alert alert-success alert-dismissible' ng-show='success'>
 			{{ success }}
 		</div>
 		<!-- printa posts, ao contrário (mais novo mais acima) -->
 		<div class='row flex-row'>
 			<div ng-repeat='post in allPosts | reverse'>
-				<div class='panel panel-default'>
-					<!-- botão de apagar, só se puder apagar -->
-					<button class='btn btn-danger' ng-click='mataPost (post.id, $index)' ng-show='podeApagar'><span class='glyphicon glyphicon-remove'></span></button>
+				<!-- botão de apagar, só se puder apagar -->
+				<button class='btn btn-danger btn-sm' ng-click='mataPost (post.id, $index)' ng-show='podeApagar'><span class='glyphicon glyphicon-remove'></span></button>
+
+				<div class='panel panel-default container'>
 					<!-- botão de salvar edição, só se puder editar -->
 					<button class='btn btn-default' ng-click='atualizaPost (post)' ng-show='podeEditar'><span class='glyphicon glyphicon-ok'></span></button>
 					<input type='text' ng-model='post.conteudo' ng-show='podeEditar'>
 					<!-- readonly -->
-					<span ng-hide='podeEditar'>{{ post.conteudo }}</span>
+					<span ng-hide='podeEditar'>
+						<span class='text-right'>{{ post.createdAt }}</span>
+						<blockquote>
+							{{ post.conteudo }}
+						</blockquote>
+					</span>
 				</div>
 			</div>
 		</div>

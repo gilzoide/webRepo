@@ -1,6 +1,53 @@
 <div ng-controller='UserInfoController' class='container'>
 	<div ng-controller='UserConfigController'>
-		<button class='btn btn-default' ng-click='paCasa ()'><span class='glyphicon glyphicon-home'></span> Bora pra casa</button>
+		<!-- Cabeçalho -->
+		<div class='page-header row'>
+			<div class='col-md-8'>
+				<h1>Configurações de usuário</h1>
+			</div>
+			<div class='col-md-4'>
+				<button class='btn btn-default' ng-click='paCasa ()'><span class='glyphicon glyphicon-home'></span> Bora pra casa</button>
+			</div>
+		</div>
+
+		<!-- erro -->
+		<div class='alert alert-danger alert-dismissible' ng-show='error'>
+			{{ error }}
+		</div>
+		<!-- sucesso -->
+		<div class='alert alert-success alert-dismissible' ng-show='success'>
+			{{ success }}
+		</div>
+
+		<!-- Controles -->
+		<div ng-repeat='campo in atualizaveis'>
+			<div class='input-group'>
+				<span class='input-group-addon'>{{ campo }}</span>
+				<input class='form-control' ng-model='user[campo]'>
+				<span class='input-group-btn'>
+					<button class='btn btn-default' ng-click='atualiza (campo)'><span class='glyphicon glyphicon-ok'></span></button>
+				</span>
+			</div>
+			<br>
+		</div>
+		<!-- Senha, que é diferente -->
+		<div class='input-group'>
+			<span class='input-group-addon'>Senha Antiga</span>
+			<input type='password' class='form-control' ng-model='senhaAntiga'>
+		</div>
+		<div class='input-group'>
+			<span class='input-group-addon'>Nova Senha</span>
+			<input type='password' class='form-control' ng-model='novaSenha'>
+		</div>
+		<div class='input-group'>
+			<span class='input-group-addon'>Nova Senha (confirma)</span>
+			<input type='password' class='form-control' ng-model='novaSenha2'>
+			<span class='input-group-btn'>
+				<button class='btn btn-default' ng-click='atualizaSenha ()'><span class='glyphicon glyphicon-ok'></span></button>
+			</span>
+		</div>
+
+		<br>
 		<button class='btn btn-danger' ng-click='apagaTe ()'><span class='glyphicon glyphicon-remove'></span> Apagar usuário!</button>
 	</div>
 </div>

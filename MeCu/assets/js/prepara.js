@@ -27,7 +27,6 @@ app.factory ('UserInfo', function ($http) {
 function deuBosta (funcName) {
 	return function (res) {
 		errMsg = '"' + funcName + "\" deu bosta!";
-		$scope.error = errMsg;
 		console.error (errMsg);
 	};
 }

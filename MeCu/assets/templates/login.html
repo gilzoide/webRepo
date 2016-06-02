@@ -13,10 +13,10 @@
 				<form>
 					<div class='form-group loginForm'>
 						<label>Login</label>
-						<input class='form-control' ng-model='user.username' placeholder='Apelido'>
-						<input class='form-control' ng-model='user.password' type='password' placeholder='Senha'>
+						<input class='form-control' ng-model='user.apelido' placeholder='Apelido'>
+						<input class='form-control' ng-model='user.senha' type='password' placeholder='Senha'>
 						<!-- Mostra erro, se tiver -->
-						<div class='alert alert-danger' ng-show='error'>
+						<div class='alert alert-danger alert-dismissible' ng-show='error'>
 							{{ error }}
 						</div>
 						<button class='btn btn-default' ng-click='login ()'>Logar!</button>
@@ -31,10 +31,10 @@
 						<input class='form-control' ng-model='user.username' placeholder='Apelido'>
 						<input class='form-control' ng-model='user.password' type='password' placeholder='Senha'>
 						<!-- Mostra erro, se tiver -->
-						<div class='alert alert-success' ng-show='success'>
+						<div class='alert alert-success alert-dismissible' ng-show='success'>
 							{{ success }}
 						</div>
-						<div class='alert alert-danger' ng-show='error'>
+						<div class='alert alert-danger alert-dismissible' ng-show='error'>
 							{{ error }}
 						</div>
 						<button class='btn btn-default' ng-click='register ()'>Registrar!</button>

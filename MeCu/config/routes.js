@@ -42,4 +42,10 @@ module.exports.routes = {
 	'post /post': 'HomeController.post',
 	'post /post/update': 'HomeController.atualizaPost',
 	'post /post/remove': 'HomeController.apagaPost',
+
+	// atualização de usuário
+	'post /user/descricao': 'ConfigController.atualizaDescricao',
+	'post /user/nome': 'ConfigController.atualizaNome',
+	'post /user/foto': 'ConfigController.atualizaFoto',
+	'post /user/senha': 'ConfigController.atualizaSenha',
 };
