@@ -4,7 +4,7 @@ app.controller ('LoginController', function ($scope, $http, $location) {
 	
 	$scope.login = function () {
 		// valor padrão, pra ficar fácil testar
-		if (! ($scope.user.apelido && $scope.user.senha)) {
+		if (! $scope.user.apelido && ! $scope.user.senha) {
 			$scope.user = {
 				apelido: 'a',
 				senha: 'a',
@@ -29,7 +29,7 @@ app.controller ('RegisterController', function ($scope, $http) {
 
 	$scope.register = function () {
 		// valor padrão, pra ficar fácil testar
-		if (! ($scope.user.apelido && $scope.user.senha)) {
+		if (! $scope.user.apelido && ! $scope.user.senha) {
 			$scope.user = {
 				apelido: 'a',
 				senha: 'a',

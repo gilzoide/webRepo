@@ -17,6 +17,7 @@ module.exports = {
 				return res.json ({ error: 'Usuário ' + id + ' não encontrado =/' });
 			}
 			else {
+				//console.log (user);
 				return res.json (user);
 			}
 		});
@@ -32,12 +33,17 @@ module.exports = {
 
 	// Adiciona um post ao usuário loggado
 	post: function (req, res) {
-		var post = req.param ('post');
-		if (!post) {
+		var titulo = req.param ('titulo');
+		var conteudo = req.param ('conteudo');
+		if (!titulo) {
+			return res.json ({ error: 'Porra, post precisa dum título' });
+		}
+		else if (!conteudo) {
 			return res.json ({ error: 'Porra, escreve algo senão não tem post' });
 		}
+
 		var id = req.session.userId;
-		Post.create ({ conteudo: post, user: id }).exec (function (err, newPost) {
+		Post.create ({ titulo: titulo, conteudo: conteudo, user: id }).exec (function (err, newPost) {
 			if (err) {
 				return res.json ({ error: 'Falha ao criar post =/' });
 			}

@@ -1,14 +1,8 @@
 app.controller ('UserConfigController', function ($scope, UserInfo, $http, $location) {
-	//$scope.user = $scope.user || {};
 	$scope.error = false;
 	$scope.success = false;
 
 	$scope.$on ('gotUser', function () {
-		// voltar pra casa
-		$scope.paCasa = function () {
-			$location.path ('/home');
-		};
-
 		// apagar usuário =S
 		$scope.apagaTe = function () {
 			if (confirm ('Tem certeza que quer se apagar?')) {
@@ -38,6 +32,24 @@ app.controller ('UserConfigController', function ($scope, UserInfo, $http, $loca
 
 		$scope.atualizaveis = ['nome', 'descricao', 'foto'];
 
+		// função de atualizar data de nascimento, que é especial
+		$scope.atualizaNiver = function () {
+			if (!$scope.user.niver) {
+				$scope.error = 'Data inválida!'
+			}
+			else {
+				$http.post ('/user/niver', { niver: $scope.user.niver }).then (function (res) {
+					if (res.data.error) {
+						$scope.error = res.data.error;
+						$scope.success = false;
+					}
+					else {
+						$scope.success = res.data.success;
+						$scope.error = false;
+					}
+				}, deuBosta ('Atualiza_niver'));
+			}
+		};
 		// função de atualizar a senha, que é especial
 		$scope.atualizaSenha = function () {
 			if (!$scope.senhaAntiga) {

@@ -1,12 +1,11 @@
 <div ng-controller='UserInfoController' class='container'>
+	<div ng-include='navbar'></div>
+
 	<div ng-controller='UserConfigController'>
 		<!-- Cabeçalho -->
 		<div class='page-header row'>
-			<div class='col-md-8'>
+			<div class='col-md-12'>
 				<h1>Configurações de usuário</h1>
-			</div>
-			<div class='col-md-4'>
-				<button class='btn btn-default' ng-click='paCasa ()'><span class='glyphicon glyphicon-home'></span> Bora pra casa</button>
 			</div>
 		</div>
 
@@ -30,6 +29,15 @@
 			</div>
 			<br>
 		</div>
+		<!-- Niver, que é diferente -->
+		<div class='input-group'>
+			<span class='input-group-addon'>Data de Nascimento</span>
+			<input type='date' class='form-control' ng-model='user.niver' placeholder='yyyy-mm-dd'>
+			<span class='input-group-btn'>
+				<button class='btn btn-default' ng-click='atualizaNiver ()'><span class='glyphicon glyphicon-ok'></span></button>
+			</span>
+		</div>
+		<br>
 		<!-- Senha, que é diferente -->
 		<div class='input-group'>
 			<span class='input-group-addon'>Senha Antiga</span>

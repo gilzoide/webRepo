@@ -19,8 +19,13 @@ module.exports = {
 			type: 'string',
 			required: true,
 		},
+		niver: {
+			type: 'date',
+			defaultsTo: '2000-01-01T00:00:00.000Z',
+		},
 		descricao: {
 			type: 'string',
+			defaultsTo: 'Sou eu',
 		},
 		foto: {
 			type: 'string',
@@ -31,10 +36,26 @@ module.exports = {
 			type: 'boolean',
 			defaultsTo: true,
 		},
+
 		// posts que usuário postou =P
 		posts: {
 			collection: 'post',
 			via: 'user',
+		},
+		// usuários que este segue
+		//segue: {
+			//collection: 'user',
+			//via: 'id',
+		//},
+		// grupos que usuário tem (é dono)
+		grupos: {
+			collection: 'group',
+			via: 'dono',
+		},
+		// grupos que usuário participa
+		segue_grupo: {
+			collection: 'group',
+			via: 'mlkda',
 		},
 	}
 };

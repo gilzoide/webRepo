@@ -48,4 +48,13 @@ module.exports.routes = {
 	'post /user/nome': 'ConfigController.atualizaNome',
 	'post /user/foto': 'ConfigController.atualizaFoto',
 	'post /user/senha': 'ConfigController.atualizaSenha',
+	'post /user/niver': 'ConfigController.atualizaNiver',
+
+	// pega usuários cadastrados
+	'get /allUsers': 'AllUsersController.pegaCadastrados',
+
+	// grupos
+	'get /allGroups': 'GroupController.pegaCadastrados',
+	'post /group': 'GroupController.pegaGrupo',
+	'post /newGroup': 'GroupController.criaGrupo',
 };

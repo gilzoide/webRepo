@@ -1,0 +1,66 @@
+/**
+ * GroupController
+ *
+ * @description :: Server-side logic for managing groups
+ * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
+ */
+
+module.exports = {
+	// GET de um grupo (por POST, pq precisa de param)
+	pegaGrupo: function (req, res) {
+		var id = req.param ('id');
+		Group.findOne ({ id: id, ativo: true }).populate ('mlkda').exec (function (err, grupo) {
+			if (err) {
+				return res.json ({ error: err });
+			}
+			else if (!grupo) {
+				return res.json ({ error: 'Grupo ' + id + ' não encontrado =S' });
+			}
+			else {
+				return res.json (grupo);
+			}
+		});
+	},
+
+	// GET de todos grupos cadastrados
+	pegaCadastrados: function (req, res) {
+		Group.find ({ ativo: true }).exec (function (err, gruposCadastrados) {
+			if (err) {
+				return res.json ({ error: err });
+			}
+			else {
+				return res.json (gruposCadastrados);
+			}
+		});
+	},
+	
+	// Cria um grupo associado a um usuário (dono)
+	criaGrupo: function (req, res) {
+		var nome = req.param ('nome');
+
+		if (!nome) {
+			return res.json ({ error: 'Grupo precisa de um nome' });
+		}
+
+		var dono = req.session.userId;
+		Group.findOne ({ nome: nome, ativo: true }).exec (function (err, grupo) {
+			if (grupo) {
+				return res.json ({ error: 'Grupo "' + nome + '" já existe!' });
+			}
+			else {
+				Group.create ({ nome: nome, dono: dono }).exec (function (err, novoGrupo) {
+					if (err) {
+						return res.json ({ error: err });
+					}
+
+					// adiciona dono do grupo na mlkda
+					novoGrupo.mlkda.add (dono);
+					novoGrupo.save ();
+					console.log ('Grupo criado: ' + novoGrupo.nome);
+					return res.json ({ success: 'Grupo criado com sucesso', newGroup: novoGrupo });
+				});
+			}
+		});
+	},
+};
+

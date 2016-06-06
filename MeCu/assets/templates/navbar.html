@@ -1,0 +1,9 @@
+<!-- Botões de controle, presentes em todas páginas logadas -->
+<ul class='nav nav-tabs' ng-controller='NavbarController'>
+	<li role='presentation' class='active'><a>{{ user.apelido }}</a></li>
+	<li role='presentation'><a href='#/home'><span class='glyphicon glyphicon-home'></span> Home </a></li>
+	<li role='presentation'><a href='#/config'><span class='glyphicon glyphicon-cog'></span> Configurações </a></li>
+	<li role='presentation'><a href='#/allUsers'><span class='glyphicon glyphicon-user'></span> Usuários </a></li>
+	<li role='presentation'><a href='#/allGroups'><span class='glyphicon glyphicon-glass'></span> Grupos </a></li>
+	<li role='presentation'><a href='#/' ng-click='logout ()'><span class='glyphicon glyphicon-off'></span> Logout </a></li>
+</ul>

@@ -53,9 +53,14 @@ module.exports = {
 			else {
 				var userJSON = { apelido: apelido, nome: apelido, senha: senha };
 				User.create (userJSON).exec (function (err, created) {
-					created.save ();
-					console.log ("Usuário criado: " + created.apelido);
-					return res.json ({ success : 'Usuário criado com sucesso!' });
+					if (err) {
+						return res.json ({ error: err });
+					}
+					else {
+						created.save ();
+						console.log ("Usuário criado: " + created.apelido);
+						return res.json ({ success : 'Usuário criado com sucesso!' });
+					}
 				});
 			}
 		});

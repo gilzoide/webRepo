@@ -14,12 +14,15 @@ function criaAtualizacao (nomeCampo) {
 		var params = {};
 		params[nomeCampo] = novoParam;
 
-		User.update ({ id: id, ativo: true }, params).exec (function (err, user) {
+		User.update ({ id: id, ativo: true }, params).exec (function (err, users) {
 			if (err) {
 				return res.json ({ error: err });
 			}
 			else {
-				user[0].save ();
+				var user = users[0];
+				console.log ('"' + user.apelido + '" atualizou ' + nomeCampo);
+				console.log (user);
+				user.save ();
 				return res.json ({ success: nomeCampo + ' atualizado(a)' });
 			}
 		});
@@ -31,13 +34,15 @@ module.exports = {
 	atualizaDescricao: criaAtualizacao ('descricao'),
 	atualizaNome: criaAtualizacao ('nome'),
 	atualizaFoto: criaAtualizacao ('foto'),
+	atualizaNiver: criaAtualizacao ('niver'),
+
 	// Atualiza senha, que é especial
 	atualizaSenha: function (req, res) {
 		var senhaAntiga = req.param ('senhaAntiga');
 		var senha = req.param ('senha');
 		var id = req.session.userId;
 
-		User.update ({ id: id, senha: senhaAntiga, ativo: true }, { senha: senha }).exec (function (err, user) {
+		User.update ({ id: id, senha: senhaAntiga, ativo: true }, { senha: senha }).exec (function (err, users) {
 			if (err) {
 				return res.json ({ error: err });
 			}
@@ -45,7 +50,7 @@ module.exports = {
 				return res.json ({ error: 'Senha Antiga está incorreta!' });
 			}
 			else {
-				user[0].save ();
+				users[0].save ();
 				return res.json ({ success: 'Senha atualizada' });
 			}
 		});
@@ -55,12 +60,21 @@ module.exports = {
 	meApaga: function (req, res) {
 		var id = req.session.userId;
 
-		User.update ({ id: id }, { ativo: false }).exec (function (err, user) {
+		User.update ({ id: id, ativo: true }, { ativo: false }).populate ('grupos').exec (function (err, users) {
 			if (err) {
 				return res.json ({ error: 'quer apagar usuário que não existe? Sé loko?' });
 			}
 			else {
-				console.log ('Usuário apagado: ' + user[0].apelido);
+				var user = users[0];
+				console.log ('Usuário apagado: ' + user.apelido);
+				Group.update ({ id: user.groups }, { ativo: false}).exec (function (err, grupos) {
+					if (err) {
+						console.error (err);
+					}
+					else {
+						console.log ('Grupos apagados');
+					}
+				});
 				// desloga
 				req.session.userId = undefined;
 				req.session.authenticated = false;

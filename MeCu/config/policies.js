@@ -25,5 +25,10 @@ module.exports.policies = {
 	// configurar usuário também
 	ConfigController: {
 		'*' : 'sessionAuth',
-	}
+	},
+	// configurar usuário também
+	GroupController: {
+		'*' : 'sessionAuth',
+		//'?' : 'ehDonoDoGrupo',
+	},
 };

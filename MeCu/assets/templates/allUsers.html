@@ -1,0 +1,22 @@
+<div ng-controller='UserInfoController' class='container'>
+	<div ng-include='navbar'></div>
+
+	<!-- Cabeçalho -->
+	<div class='page-header row'>
+		<div class='col-md-8'>
+			<h1>Usuários cadastrados</h1>
+		</div>
+	</div>
+	
+	<!-- erro -->
+	<div class='alert alert-danger alert-dismissible' ng-show='error'>
+		{{ error }}
+	</div>
+
+	<div ng-controller='AllUsersController'>
+		<div ng-repeat='cadastrado in allUsers'>
+			{{ cadastrado.apelido }}
+		</div>
+	</div>
+
+</div>

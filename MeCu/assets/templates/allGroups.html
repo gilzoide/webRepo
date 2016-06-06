@@ -1,0 +1,36 @@
+<div ng-controller='UserInfoController' class='container'>
+	<div ng-include='navbar'></div>
+
+	<!-- Cabeçalho -->
+	<div class='page-header row'>
+		<div class='col-md-12'>
+			<h1>Grupos Cadastrados</h1>
+		</div>
+	</div>
+	
+	<div ng-controller='AllGroupsController'>
+		<div class='input-group'>
+			<span class='input-group-addon'>Novo grupo</span>
+			<input class='form-control' ng-model='novoGrupo'>
+			<span class='input-group-btn'>
+				<button class='btn btn-default' ng-click='criaGrupo (novoGrupo)'><span class='glyphicon glyphicon-ok'></span></button>
+			</span>
+		</div>
+		<br>
+
+		<!-- erro -->
+		<div class='alert alert-danger alert-dismissible' ng-show='error'>
+			{{ error }}
+		</div>
+		<!-- sucesso -->
+		<div class='alert alert-success alert-dismissible' ng-show='success'>
+			{{ success }}
+		</div>
+		
+		<div ng-repeat='cadastrado in allGroups'>
+			<a ng-click='goToGrupo (cadastrado)'>{{ cadastrado.nome }}</a>
+		</div>
+	</div>
+
+</div>
+

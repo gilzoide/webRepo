@@ -1,20 +1,16 @@
 <div ng-controller='UserInfoController' class='container'>
+	<div ng-include='navbar'></div>
+
 	<!-- Infos de usuário -->
 	<div class='page-header row'>
 		<!-- Informações de usuário -->
 		<div class='col-md-1'>
-			<img class='img-responsive center-block' src='{{ user.foto }}' alt='Foto do usuário'>
+			<img class='img-responsive center-block' src='{{ user.foto || "images/fotoPadrao.png" }}' alt='Foto do usuário'>
 		</div>
 		<div class='col-md-6'>
 			<h1>{{ user.nome }} <small>{{ user.apelido }}</small></h1>
 		</div>
 
-		<!-- Botões de controle -->
-		<div class='btn-group col-md-4 col-md-offset-1' ng-controller='HeaderButtonController' role="group" aria-label="...">
-			<button class='btn btn-default'><span class='glyphicon glyphicon-home'></span></button>
-			<button class='btn btn-default' ng-click='configura ()'><span class='glyphicon glyphicon-cog'></span> Configurações </button>
-			<button class='btn btn-default' ng-click='logout ()'><span class='glyphicon glyphicon-off'></span></button>
-		</div>
 		<div class='col-md-12'>
 			{{ user.descricao }}
 		</div>
@@ -24,9 +20,10 @@
 	<div ng-controller='PostController'>
 		<!-- input do novo post -->
 		<div class='input-group'>
-			<input class='form-control' ng-model='newPost' placeholder="Conte-nos algo">
+			<input class='form-control' ng-model='newPost.titulo' placeholder="Título">
+			<input class='form-control' ng-model='newPost.conteudo' placeholder="Conte-nos algo">
 			<span class='input-group-btn'>
-				<button class='btn btn-default' ng-click='createPost (newPost)'><span class='glyphicon glyphicon-ok'></span></button>
+				<button class='btn btn-default' ng-click='createPost (newPost.titulo, newPost.conteudo)'><span class='glyphicon glyphicon-ok'></span></button>
 				<button class='btn btn-default' ng-click='marcaEditar (!podeEditar)'><span class='glyphicon glyphicon-pencil'></span></button>
 				<button class='btn btn-danger' ng-click='marcaMorte (!podeApagar)'><span class='glyphicon glyphicon-remove'></span></button>
 			</span>
@@ -51,7 +48,7 @@
 					<input type='text' ng-model='post.conteudo' ng-show='podeEditar'>
 					<!-- readonly -->
 					<span ng-hide='podeEditar'>
-						<span class='text-right'>{{ post.createdAt }}</span>
+						{{ post.createdAt | date:'dd/MM/yyyy' }} - {{ post.titulo }}
 						<blockquote>
 							{{ post.conteudo }}
 						</blockquote>

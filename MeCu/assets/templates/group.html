@@ -1,0 +1,21 @@
+<div ng-controller='UserInfoController' class='container'>
+	<div ng-include='navbar'></div>
+
+	<div ng-controller='GroupController'>
+		<!-- Cabeçalho -->
+		<div class='page-header row'>
+			<div class='col-md-12'>
+				<h1>{{ grupo.nome }}</h1>
+			</div>
+		</div>
+		<!-- erro -->
+		<div class='alert alert-danger alert-dismissible' ng-show='error'>
+			{{ error }}
+		</div>
+
+		<h3>Inscritos:</h3>
+		<div ng-repeat='pessoa in grupo.mlkda'>
+			<a ng-click='goToUser (pessoa)'>{{ pessoa.nome }}{{ pessoa.id == user.id ? ' (eu)' : '' }}</a>
+		</div>
+	</div>
+</div>

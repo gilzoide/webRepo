@@ -1,19 +1,7 @@
 // Controller de informações de usuário
 app.controller ('UserInfoController', function ($scope, UserInfo) {
 	UserInfo ($scope);
-});
-
-// Controller de botões de controle
-app.controller ('HeaderButtonController', function ($scope, $http, $location) {
-	$scope.logout = function () {
-		$http.post ('/logout').then (function yes (res) {
-			$location.path (res.data.path);
-		}, deuBosta ('Logout'));
-	};
-
-	$scope.configura = function () {
-		$location.path ('/config');
-	};
+	$scope.navbar = '/templates/navbar.html';
 });
 
 // Filtro que inverte um array no ng-repeat
@@ -24,7 +12,7 @@ app.filter ('reverse', function () {
 });
 
 // Posts, e talz
-app.controller ('PostController', function ($scope, $timeout, $http) {
+app.controller ('PostController', function ($scope, $http) {
 	// variáveis temporárias, enquanto o trem não carregou os posts ainda
 	$scope.allPosts = [];
 	$scope.podeApagar = false;
@@ -34,11 +22,10 @@ app.controller ('PostController', function ($scope, $timeout, $http) {
 	$scope.$on ('gotUser', function () {
 		$scope.allPosts = $scope.user.posts;
 		$scope.carregando = false;
-		console.log ($scope.user);
 
 		// nova postagem!
-		$scope.createPost = function (post) {
-			$http.post ('/post', { post: post }).then (function yes (res) {
+		$scope.createPost = function (titulo, conteudo) {
+			$http.post ('/post', { titulo: titulo, conteudo: conteudo }).then (function yes (res) {
 				if (res.data.error) {
 					$scope.error = res.data.error;
 				}

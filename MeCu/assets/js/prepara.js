@@ -2,6 +2,7 @@
 
 var app = angular.module ('MeCu', ['ngRoute']);
 
+
 // Serviço que pega as informações do usuário atual
 //
 // Deve ser usado injetado, num 'resolve' das rotas
@@ -15,10 +16,14 @@ app.factory ('UserInfo', function ($http) {
 	return function (scope) {
 		return $http.get ('/userinfo').then (function (res) {
 			scope.user = res.data;
+			console.log (scope.user.niver);
+			scope.user.niver = new Date (scope.user.niver);
+			console.log (scope.user.niver);
 			scope.$broadcast ('gotUser');
 		});
 	};
 });
+
 
 // Função (xupa serviço) padrão que diz quando deu erro numa requisição HTTP
 // dentro de controladores, escrevendo mensagens de erro
@@ -30,6 +35,7 @@ function deuBosta (funcName) {
 		console.error (errMsg);
 	};
 }
+
 
 // Rotas, pra sincronizar o ng-view
 app.config (function ($routeProvider) {
@@ -44,6 +50,22 @@ app.config (function ($routeProvider) {
 	// no '/config', rola 'config'
 	$routeProvider.when ('/config', {
 		templateUrl: '/templates/config.html',
+	});
+	// no '/allUsers', rola 'allUsers'
+	$routeProvider.when ('/allUsers', {
+		templateUrl: '/templates/allUsers.html',
+	});
+	// no '/allGroups', rola 'allUsers'
+	$routeProvider.when ('/allGroups', {
+		templateUrl: '/templates/allGroups.html',
+	});
+	// no '/group', rola 'group'
+	$routeProvider.when ('/group/:groupId', {
+		templateUrl: '/templates/group.html',
+	});
+	// no '/myGroup', rola 'group'
+	$routeProvider.when ('/myGroup/:groupId', {
+		templateUrl: '/templates/group.html',
 	});
 	// 404!
 	$routeProvider.otherwise ({
