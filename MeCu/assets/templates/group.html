@@ -8,14 +8,29 @@
 				<h1>{{ grupo.nome }}</h1>
 			</div>
 		</div>
+
+		<!-- Adiciona pessoa -->
+		<div class='input-group'>
+			<span class='input-group-addon'>Adicionar pessoa</span>
+			<input class='form-control' ng-model='pessoaAAdicionar'>
+			<span class='input-group-btn'>
+				<button class='btn btn-default' ng-click='addPessoa (pessoaAAdicionar)'><span class='glyphicon glyphicon-ok'></span></button>
+			</span>
+		</div>
+		<br>
+
 		<!-- erro -->
 		<div class='alert alert-danger alert-dismissible' ng-show='error'>
 			{{ error }}
 		</div>
+		<!-- sucesso -->
+		<div class='alert alert-success alert-dismissible' ng-show='success'>
+			{{ success }}
+		</div>
 
 		<h3>Inscritos:</h3>
 		<div ng-repeat='pessoa in grupo.mlkda'>
-			<a ng-click='goToUser (pessoa)'>{{ pessoa.nome }}{{ pessoa.id == user.id ? ' (eu)' : '' }}</a>
+			<a ng-click='goToUser (pessoa)'>@{{ pessoa.nome }}{{ pessoa.id == user.id ? ' (eu)' : '' }}</a>
 		</div>
 	</div>
 </div>

@@ -20,12 +20,26 @@
 	<div ng-controller='PostController'>
 		<!-- input do novo post -->
 		<div class='input-group'>
-			<input class='form-control' ng-model='newPost.titulo' placeholder="Título">
+			<span class='input-group-addon'>Título</span>
+			<input class='form-control' ng-model='newPost.titulo' placeholder="Bom dia">
+		</div>
+		<div class='input-group'>
+			<span class='input-group-addon'>Conteúdo</span>
 			<input class='form-control' ng-model='newPost.conteudo' placeholder="Conte-nos algo">
 			<span class='input-group-btn'>
 				<button class='btn btn-default' ng-click='createPost (newPost.titulo, newPost.conteudo)'><span class='glyphicon glyphicon-ok'></span></button>
 				<button class='btn btn-default' ng-click='marcaEditar (!podeEditar)'><span class='glyphicon glyphicon-pencil'></span></button>
 				<button class='btn btn-danger' ng-click='marcaMorte (!podeApagar)'><span class='glyphicon glyphicon-remove'></span></button>
+			</span>
+		</div>
+
+		<br>
+		<div class='input-group'>
+			<!-- filtragem -->
+			<span class='input-group-addon'>Filtrar posts</span>
+			<input type='text' class='form-control' ng-model='filtroDePosts' placeholder='Filtro'>
+			<span class='input-group-btn'>
+				<button class='btn btn-default' ng-click=''><span class='glyphicon glyphicon-ok'></span></button>
 			</span>
 		</div>
 		<!-- erro -->
@@ -36,6 +50,7 @@
 		<div class='alert alert-success alert-dismissible' ng-show='success'>
 			{{ success }}
 		</div>
+
 		<!-- printa posts, ao contrário (mais novo mais acima) -->
 		<div class='row flex-row'>
 			<div ng-repeat='post in allPosts | reverse'>

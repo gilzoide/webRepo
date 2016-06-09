@@ -62,5 +62,40 @@ module.exports = {
 			}
 		});
 	},
+
+	// Adiciona alguém no grupo (pra seguí-lo)
+	addAlguem: function (req, res) {
+		var grupo = req.param ('grupo');
+		var nomePessoa = req.param ('pessoa');
+
+		User.findOne ({ nome: nomePessoa, ativo: true }).exec (function (err, user) {
+			if (err) {
+				return res.json ({ error: err });
+			}
+			else if (!user) {
+				return res.json ({ error: 'Usuário inexistente' });
+			}
+			else {
+				Group.findOne ({ id: grupo, ativo: true }).exec (function (err, grupo) {
+					if (err) {
+						return res.json ({ error: err });
+					}
+					else if (!user) {
+						return res.json ({ error: '¿Grupo inexistente?' });
+					}
+					else {
+						grupo.mlkda.add (user.id);
+						grupo.save (function (err, s) {
+							if (err) {
+								return res.json ({ error: 'Usuário já participa do grupo' });
+							}
+							console.log (s);
+							return res.json ({ success: 'Usuário adicionado', pessoa: user });
+						});
+					}
+				});
+			}
+		});
+	},
 };
 

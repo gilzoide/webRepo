@@ -1,0 +1,40 @@
+<div ng-controller='UserInfoController' class='container'>
+	<div ng-include='navbar'></div>
+
+	<div ng-controller='UserController'>
+		<!-- Cabeçalho -->
+		<div class='page-header row'>
+			<!-- Informações de usuário -->
+			<div class='col-md-1'>
+				<img class='img-responsive center-block' src='{{ pessoa.foto || "images/fotoPadrao.png" }}' alt='Foto do usuário'>
+			</div>
+			<div class='col-md-6'>
+				<h1>{{ pessoa.nome }} <small>{{ pessoa.apelido }}</small></h1>
+			</div>
+
+			<div class='col-md-12'>
+				{{ pessoa.descricao }}
+			</div>
+		</div>
+		<!-- erro -->
+		<div class='alert alert-danger alert-dismissible' ng-show='error'>
+			{{ error }}
+		</div>
+		<!-- sucesso -->
+		<div class='alert alert-success alert-dismissible' ng-show='success'>
+			{{ success }}
+		</div>
+
+		<!-- printa posts, ao contrário (mais novo mais acima) -->
+		<div class='row flex-row'>
+			<div ng-repeat='post in pessoa.posts | reverse'>
+				<div class='panel panel-default container'>
+					{{ post.createdAt | date:'dd/MM/yyyy' }} - {{ post.titulo }}
+					<blockquote>
+						{{ post.conteudo }}
+					</blockquote>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

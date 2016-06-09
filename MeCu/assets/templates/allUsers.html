@@ -14,8 +14,8 @@
 	</div>
 
 	<div ng-controller='AllUsersController'>
-		<div ng-repeat='cadastrado in allUsers'>
-			{{ cadastrado.apelido }}
+		<div ng-repeat='pessoa in allUsers'>
+			<a ng-click='goToUser (pessoa)'>@{{ pessoa.apelido }}{{ pessoa.id == user.id ? ' (eu)' : '' }}</a>
 		</div>
 	</div>
 

@@ -4,13 +4,6 @@ app.controller ('UserInfoController', function ($scope, UserInfo) {
 	$scope.navbar = '/templates/navbar.html';
 });
 
-// Filtro que inverte um array no ng-repeat
-app.filter ('reverse', function () {
-	return function (items) {
-		return items.slice ().reverse ();
-	};
-});
-
 // Posts, e talz
 app.controller ('PostController', function ($scope, $http) {
 	// variáveis temporárias, enquanto o trem não carregou os posts ainda

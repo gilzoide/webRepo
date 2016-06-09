@@ -51,10 +51,12 @@ module.exports.routes = {
 	'post /user/niver': 'ConfigController.atualizaNiver',
 
 	// pega usuários cadastrados
-	'get /allUsers': 'AllUsersController.pegaCadastrados',
+	'get /allUsers': 'UserController.pegaCadastrados',
+	'post /user': 'UserController.pegaUsuario',
 
 	// grupos
 	'get /allGroups': 'GroupController.pegaCadastrados',
 	'post /group': 'GroupController.pegaGrupo',
 	'post /newGroup': 'GroupController.criaGrupo',
+	'post /group/addAlguem': 'GroupController.addAlguem',
 };

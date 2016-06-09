@@ -43,10 +43,16 @@ module.exports = {
 			via: 'user',
 		},
 		// usuários que este segue
-		//segue: {
-			//collection: 'user',
-			//via: 'id',
-		//},
+		segue_pessoa: {
+			collection: 'user',
+			via: 'me_segue',
+			dominant: true,
+		},
+		// usuários que seguem esse
+		me_segue: {
+			collection: 'user',
+			via: 'segue_pessoa',
+		},
 		// grupos que usuário tem (é dono)
 		grupos: {
 			collection: 'group',

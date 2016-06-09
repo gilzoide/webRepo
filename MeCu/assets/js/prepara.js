@@ -47,6 +47,10 @@ app.config (function ($routeProvider) {
 	$routeProvider.when ('/home', {
 		templateUrl: '/templates/home.html',
 	});
+	// no '/user/ID', rola 'user'
+	$routeProvider.when ('/user/:userId', {
+		templateUrl: '/templates/user.html',
+	});
 	// no '/config', rola 'config'
 	$routeProvider.when ('/config', {
 		templateUrl: '/templates/config.html',
@@ -73,4 +77,11 @@ app.config (function ($routeProvider) {
 	});
 });
 
+
+// Filtro que inverte um array no ng-repeat
+app.filter ('reverse', function () {
+	return function (items) {
+		return items.slice ().reverse ();
+	};
+});
 
