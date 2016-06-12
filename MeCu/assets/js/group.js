@@ -9,10 +9,6 @@ app.controller ('GroupController', function ($scope, $http, $routeParams, $locat
 		}
 	}, deuBosta ('GetGroup'));
 
-	$scope.goToUser = function (pessoa) {
-		$location.path (pessoa.id !== $scope.user.id ? '/user/' + pessoa.id : '/home');
-	};
-
 	$scope.addPessoa = function (nomePessoa) {
 		$http.post ('/group/addAlguem', { grupo: $scope.grupo.id, pessoa: nomePessoa }).then (function (res) {
 			if (res.data.error) {
@@ -26,4 +22,5 @@ app.controller ('GroupController', function ($scope, $http, $routeParams, $locat
 			}
 		}, deuBosta ('AddPessoaGrupo'));
 	};
+
 });

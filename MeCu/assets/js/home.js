@@ -68,6 +68,24 @@ app.controller ('PostController', function ($scope, $http) {
 			}, deuBosta ('AtualizaPost'));
 		};
 	});
+});
 
 
+app.filter ('trataPost', function () {
+	return function (texto) {
+		// trata links -> $l:""
+		texto = texto.replace (/\$l:"([^"]+)"/g, function (str, link) {
+			return "<a href='" + link + "'>" + link + "</a>";
+		});
+		// trata imagens -> $i:""
+		texto = texto.replace (/\$i:"([^"]+)"/g, function (str, link) {
+			return "<img src='" + link + "' alt='" + link + "'>";
+		});
+		// trata usuários -> @user
+		texto = texto.replace (/@(\S+)/g, function (str, nome) {
+			return "<a href='#/userName/" + nome + "'>@" + nome + "</a>";
+		});
+
+		return texto;
+	};
 });

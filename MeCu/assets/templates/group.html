@@ -30,7 +30,7 @@
 
 		<h3>Inscritos:</h3>
 		<div ng-repeat='pessoa in grupo.mlkda'>
-			<a ng-click='goToUser (pessoa)'>@{{ pessoa.nome }}{{ pessoa.id == user.id ? ' (eu)' : '' }}</a>
+			<a href='#/user/{{ pessoa.id }}'>@{{ pessoa.apelido }}{{ pessoa.id == user.id ? ' (eu)' : '' }}</a>
 		</div>
 	</div>
 </div>

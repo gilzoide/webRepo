@@ -1,6 +1,6 @@
 /// Script de preparação do Angular e panz
 
-var app = angular.module ('MeCu', ['ngRoute']);
+var app = angular.module ('MeCu', ['ngRoute', 'ngSanitize']);
 
 
 // Serviço que pega as informações do usuário atual
@@ -49,6 +49,10 @@ app.config (function ($routeProvider) {
 	});
 	// no '/user/ID', rola 'user'
 	$routeProvider.when ('/user/:userId', {
+		templateUrl: '/templates/user.html',
+	});
+	// no '/user/NOME' rola 'user'
+	$routeProvider.when ('/userName/:userName', {
 		templateUrl: '/templates/user.html',
 	});
 	// no '/config', rola 'config'

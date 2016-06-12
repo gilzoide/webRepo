@@ -16,7 +16,7 @@ app.controller ('LoginController', function ($scope, $http, $location) {
 				$scope.success = false;
 			}
 			else {
-				// redireciona pro '/home'
+				// e redireciona pro '/home'
 				$location.path (res.data.path);
 			}
 		}, deuBosta ('Login'));

@@ -65,7 +65,7 @@
 					<span ng-hide='podeEditar'>
 						{{ post.createdAt | date:'dd/MM/yyyy' }} - {{ post.titulo }}
 						<blockquote>
-							{{ post.conteudo }}
+							<div ng-bind-html='post.conteudo | trataPost'></div>
 						</blockquote>
 					</span>
 				</div>

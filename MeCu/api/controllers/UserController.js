@@ -18,15 +18,27 @@ module.exports = {
 		});
 	},
 
-	// Pega infos de um usuário específico
+	// Pega infos de um usuário específico, por ID ou APELIDO
 	pegaUsuario: function (req, res) {
 		var id = req.param ('id');
-		User.findOne ({ id: id, ativo: true }).populate (['posts']).exec (function (err, user) {
+		var obj = { ativo: true };
+		if (id) {
+			obj.id = id;
+		}
+		else {
+			var apelido = req.param ('apelido');
+			if (!apelido) {
+				return res.json ({ error: 'PegaUsuário: faltou params, troxa' });
+			}
+			obj.apelido = apelido;
+		}
+
+		User.findOne (obj).populate (['posts']).exec (function (err, user) {
 			if (err) {
 				return res.json ({ error: err });
 			}
 			else if (!user) {
-				return res.json ({ error: 'Grupo ' + id + ' não encontrado =S' });
+				return res.json ({ error: 'Usuário não encontrado =S' });
 			}
 			else {
 				return res.json (user);
