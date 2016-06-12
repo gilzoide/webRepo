@@ -8,7 +8,7 @@
 module.exports = {
 	// GET em todos usuários
 	pegaCadastrados: function (req, res) {
-		User.find ({ ativo: true }).exec (function (err, usersCadastrados) {
+		User.find ().exec (function (err, usersCadastrados) {
 			if (err) {
 				return res.json ({ error: err });
 			}
@@ -21,7 +21,7 @@ module.exports = {
 	// Pega infos de um usuário específico, por ID ou APELIDO
 	pegaUsuario: function (req, res) {
 		var id = req.param ('id');
-		var obj = { ativo: true };
+		var obj = {};
 		if (id) {
 			obj.id = id;
 		}

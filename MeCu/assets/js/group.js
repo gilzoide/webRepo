@@ -48,7 +48,7 @@ app.controller ('GroupController', function ($scope, $http, $routeParams, $locat
 					$scope.success = res.data.success;
 					$scope.error = false;
 					var mlkda = $scope.grupo.mlkda;
-					mlkda.splice (mlkda.findIndex (function (u) { u.id == $scope.user.id }), 1);
+					mlkda.splice (mlkda.findIndex (function (u) { return u.id == $scope.user.id }), 1);
 				}
 			}, deuBosta ('SairDoGrupo'));
 		}

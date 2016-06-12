@@ -31,11 +31,6 @@ module.exports = {
 			type: 'string',
 			defaultsTo: 'images/fotoPadrao.png'
 		},
-		// atributo que marca se usuário "existe"
-		ativo: {
-			type: 'boolean',
-			defaultsTo: true,
-		},
 
 		// posts que usuário postou =P
 		posts: {

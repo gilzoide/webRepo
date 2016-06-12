@@ -10,7 +10,7 @@ module.exports = {
 	login: function (req, res) {
 		var apelido = req.param ('apelido');
 		var senha = req.param ('senha');
-		User.findOne ({ apelido: apelido, ativo: true }, function (err, user) {
+		User.findOne ({ apelido: apelido }, function (err, user) {
 			if (err) {
 				return res.json ({ error: 'Falha ao logar =/' });
 			}
@@ -44,7 +44,7 @@ module.exports = {
 		}
 
 		// procura usuário primeiro, reclama se existir
-		User.findOne ({ apelido: apelido, ativo: true }, function (err, user) {
+		User.findOne ({ apelido: apelido }, function (err, user) {
 			// achou um válido, reclama
 			if (user) {
 				return res.json ({ error : 'Usuário "' + apelido + '" já existe!' });

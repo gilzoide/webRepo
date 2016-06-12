@@ -9,7 +9,7 @@ module.exports = {
 	// GET de um grupo (por POST, pq precisa de param)
 	pegaGrupo: function (req, res) {
 		var id = req.param ('id');
-		Group.findOne ({ id: id, ativo: true }).populate ('mlkda').exec (function (err, grupo) {
+		Group.findOne ({ id: id }).populate ('mlkda').exec (function (err, grupo) {
 			if (err) {
 				return res.json ({ error: err });
 			}
@@ -24,7 +24,7 @@ module.exports = {
 
 	// GET de todos grupos cadastrados
 	pegaCadastrados: function (req, res) {
-		Group.find ({ ativo: true }).populate ('mlkda').exec (function (err, gruposCadastrados) {
+		Group.find ().populate ('mlkda').exec (function (err, gruposCadastrados) {
 			if (err) {
 				return res.json ({ error: err });
 			}
@@ -43,7 +43,7 @@ module.exports = {
 		}
 
 		var dono = req.session.userId;
-		Group.findOne ({ nome: nome, ativo: true }).exec (function (err, grupo) {
+		Group.findOne ({ nome: nome }).exec (function (err, grupo) {
 			if (grupo) {
 				return res.json ({ error: 'Grupo "' + nome + '" já existe!' });
 			}
@@ -68,7 +68,7 @@ module.exports = {
 		var grupo = req.param ('grupo');
 		var nomePessoa = req.param ('pessoa');
 
-		User.findOne ({ nome: nomePessoa, ativo: true }).exec (function (err, user) {
+		User.findOne ({ nome: nomePessoa }).exec (function (err, user) {
 			if (err) {
 				return res.json ({ error: err });
 			}
@@ -100,21 +100,13 @@ module.exports = {
 	// Apaga grupo =/
 	apagaGrupo: function (req, res) {
 		var id = req.param ('id');
-		Group.findOne ({ id: id, ativo: true }).exec (function (err, grupo) {
+		// apaga grupo se usuário for o dono dele
+		Group.destroy ({ id: id, dono: req.session.userId }).exec (function (err) {
 			if (err) {
-				return res.json ({ error: err });
+				return res.json ({ error: 'Erro ao apagar grupo' });
 			}
-			else if (!grupo) {
-				return res.json ({ error: 'Grupo não encontrado!' });
-			}
-			else if (grupo.dono != req.session.userId) {
-				return res.json ({ error: 'Você não é dono do grupo, não pode apagá-lo' });
-			}
-			else {
-				grupo.ativo = false;
-				grupo.save ();
-				return res.json ();
-			}
+			console.log ('Grupo ' + id + ' apagado!');
+			return res.json ();
 		});
 	},
 
@@ -123,7 +115,7 @@ module.exports = {
 		var id = req.param ('id');
 		var user = req.session.userId;
 
-		Group.findOne ({ id: id, ativo: true }).exec (function (err, grupo) {
+		Group.findOne ({ id: id }).exec (function (err, grupo) {
 			if (err) {
 				return res.json ({ error: err });
 			}

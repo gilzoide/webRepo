@@ -14,7 +14,7 @@ function criaAtualizacao (nomeCampo) {
 		var params = {};
 		params[nomeCampo] = novoParam;
 
-		User.update ({ id: id, ativo: true }, params).exec (function (err, users) {
+		User.update ({ id: id }, params).exec (function (err, users) {
 			if (err) {
 				return res.json ({ error: err });
 			}
@@ -42,7 +42,7 @@ module.exports = {
 		var senha = req.param ('senha');
 		var id = req.session.userId;
 
-		User.update ({ id: id, senha: senhaAntiga, ativo: true }, { senha: senha }).exec (function (err, users) {
+		User.update ({ id: id, senha: senhaAntiga }, { senha: senha }).exec (function (err, users) {
 			if (err) {
 				return res.json ({ error: err });
 			}
@@ -60,27 +60,27 @@ module.exports = {
 	meApaga: function (req, res) {
 		var id = req.session.userId;
 
-		User.update ({ id: id, ativo: true }, { ativo: false }).populate ('grupos').exec (function (err, users) {
+		User.destroy ({ id: id }).exec (function (err) {
 			if (err) {
-				return res.json ({ error: 'quer apagar usuário que não existe? Sé loko?' });
+				res.json ({ error: err });
 			}
-			else {
-				var user = users[0];
-				console.log ('Usuário apagado: ' + user.apelido);
-				Group.update ({ id: user.groups }, { ativo: false}).exec (function (err, grupos) {
+			console.log ('Usuário apagado,');
+
+			Group.destroy ({ dono: id }).exec (function (err) {
+				if (err) {
+					res.json ({ error: err });
+				}
+
+				console.log ('Grupos apagados,');
+				Post.destroy ({ user: id }).exec (function (err) {
 					if (err) {
-						console.error (err);
+						res.json ({ error: err });
 					}
-					else {
-						console.log ('Grupos apagados');
-					}
+
+					console.log ('E posts apagados =]');
+					return res.json ({ path: '/' });
 				});
-				// desloga
-				req.session.userId = undefined;
-				req.session.authenticated = false;
-				// e manda pro login
-				return res.json ({ path: '/' });
-			}
+			});
 		});
 	},
 };

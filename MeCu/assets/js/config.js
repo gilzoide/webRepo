@@ -7,7 +7,12 @@ app.controller ('UserConfigController', function ($scope, UserInfo, $http, $loca
 		$scope.apagaTe = function () {
 			if (confirm ('Tem certeza que quer se apagar?')) {
 				$http.post ('/meApaga').then (function (res) {
-					$location.path (res.data.path);
+					if (res.data.error) {
+						$scope.error = res.data.error;
+					}
+					else {
+						$location.path (res.data.path);
+					}
 				}, deuBosta ('MeApaga'));
 			}
 		};
