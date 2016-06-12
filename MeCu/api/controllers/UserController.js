@@ -33,7 +33,7 @@ module.exports = {
 			obj.apelido = apelido;
 		}
 
-		User.findOne (obj).populate (['posts']).exec (function (err, user) {
+		User.findOne (obj).exec (function (err, user) {
 			if (err) {
 				return res.json ({ error: err });
 			}

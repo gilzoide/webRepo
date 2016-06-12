@@ -35,6 +35,7 @@ module.exports.routes = {
 	'post /meApaga': 'ConfigController.meApaga',
 	// pega infos do usuário loggado
 	'get /userinfo': 'HomeController.getLogged',
+	'get /todosPosts': 'HomeController.pegaTodosPosts',
 	// logout!
 	'post /logout': 'HomeController.logout',
 

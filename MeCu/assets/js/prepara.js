@@ -16,9 +16,6 @@ app.factory ('UserInfo', function ($http) {
 	return function (scope) {
 		return $http.get ('/userinfo').then (function (res) {
 			scope.user = res.data;
-			console.log (scope.user.niver);
-			scope.user.niver = new Date (scope.user.niver);
-			console.log (scope.user.niver);
 			scope.$broadcast ('gotUser');
 		});
 	};
@@ -79,14 +76,6 @@ app.config (function ($routeProvider) {
 	$routeProvider.otherwise ({
 		templateUrl: '/templates/404.html',
 	});
-});
-
-
-// Filtro que inverte um array no ng-repeat
-app.filter ('reverse', function () {
-	return function (items) {
-		return items.slice ().reverse ();
-	};
 });
 
 

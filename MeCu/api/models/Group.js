@@ -15,10 +15,6 @@ module.exports = {
 			model: 'user',
 			required: true,
 		},
-		ativo: {
-			type: 'boolean',
-			defaultsTo: true,
-		},
 		mlkda: {
 			collection: 'user',
 			via: 'segue_grupo',

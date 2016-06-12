@@ -2,12 +2,20 @@
 app.controller ('PostController', function ($scope, $http) {
 	// variáveis temporárias, enquanto o trem não carregou os posts ainda
 	$scope.allPosts = [];
-	$scope.podeApagar = false;
-	$scope.podeEditar = false;
 
 	// espera ter info sobre o usuário pra cadastrar as coisas
 	$scope.$on ('gotUser', function () {
-		$scope.allPosts = $scope.user.posts;
+		// pega posts
+		$http.get ('/todosPosts').then (function (res) {
+			if (res.data.error) {
+				$scope.error = res.data.error;
+				$scope.success = false;
+			}
+			else {
+				$scope.error = false;
+				$scope.allPosts = res.data;
+			}
+		}, deuBosta ('PegaTodosPosts'));
 		$scope.carregando = false;
 
 		// nova postagem!
@@ -17,7 +25,7 @@ app.controller ('PostController', function ($scope, $http) {
 					$scope.error = res.data.error;
 				}
 				else {
-					$scope.allPosts.push (res.data.post);
+					$scope.allPosts.unshift (res.data.post);
 					$scope.error = false;
 				}
 			});
@@ -78,6 +86,10 @@ app.filter ('trataPost', function () {
 		// trata usuários -> @user
 		texto = texto.replace (/@(\S+)/g, function (str, nome) {
 			return "<a href='#/userName/" + nome + "'>@" + nome + "</a>";
+		});
+		// trata tags -> #tag
+		texto = texto.replace (/(#\S+)/g, function (str, tag) {
+			return "<i>" + tag + "</i>";
 		});
 
 		return texto;

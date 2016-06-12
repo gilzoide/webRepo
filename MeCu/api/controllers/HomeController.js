@@ -84,12 +84,32 @@ module.exports = {
 
 		Post.update ({ id: postId, user: id }, { conteudo: conteudo }).exec (function (err, updated) {
 			if (err) {
+				return res.json ({ error: err });
+			}
+			else if (!updated[0]) {
 				return res.json ({ error: 'Atualiza post: deu não. És o dono do post?' });
 			}
 			else {
 				updated[0].save ();
 				return res.json ({ success: 'Post atualizado!' });
 			}
+		});
+	},
+
+	// Pega todos os posts que usuário logado escuta (incluindo grupos e talz)
+	pegaTodosPosts: function (req, res) {
+		var id = req.session.userId;
+		User.findOne ({ id: id }).populate (['segue_grupo', 'posts']).exec (function (err, user) {
+			if (err) {
+				return res.json ({ error: err });
+			}
+			else if (!user) {
+				return res.json ({ error: 'Usuário não encontrado =S' });
+			}
+
+			return res.json (user.posts.sort (function (a, b) {
+				return b.createdAt - a.createdAt;
+			}));
 		});
 	},
 };
