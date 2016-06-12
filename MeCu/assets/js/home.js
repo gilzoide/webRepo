@@ -1,9 +1,3 @@
-// Controller de informações de usuário
-app.controller ('UserInfoController', function ($scope, UserInfo) {
-	UserInfo ($scope);
-	$scope.navbar = '/templates/navbar.html';
-});
-
 // Posts, e talz
 app.controller ('PostController', function ($scope, $http) {
 	// variáveis temporárias, enquanto o trem não carregou os posts ainda

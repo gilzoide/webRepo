@@ -24,7 +24,7 @@ module.exports = {
 
 	// GET de todos grupos cadastrados
 	pegaCadastrados: function (req, res) {
-		Group.find ({ ativo: true }).exec (function (err, gruposCadastrados) {
+		Group.find ({ ativo: true }).populate ('mlkda').exec (function (err, gruposCadastrados) {
 			if (err) {
 				return res.json ({ error: err });
 			}
@@ -89,10 +89,57 @@ module.exports = {
 							if (err) {
 								return res.json ({ error: 'Usuário já participa do grupo' });
 							}
-							console.log (s);
 							return res.json ({ success: 'Usuário adicionado', pessoa: user });
 						});
 					}
+				});
+			}
+		});
+	},
+
+	// Apaga grupo =/
+	apagaGrupo: function (req, res) {
+		var id = req.param ('id');
+		Group.findOne ({ id: id, ativo: true }).exec (function (err, grupo) {
+			if (err) {
+				return res.json ({ error: err });
+			}
+			else if (!grupo) {
+				return res.json ({ error: 'Grupo não encontrado!' });
+			}
+			else if (grupo.dono != req.session.userId) {
+				return res.json ({ error: 'Você não é dono do grupo, não pode apagá-lo' });
+			}
+			else {
+				grupo.ativo = false;
+				grupo.save ();
+				return res.json ();
+			}
+		});
+	},
+
+	// Sair do grupo
+	sairDoGrupo: function (req, res) {
+		var id = req.param ('id');
+		var user = req.session.userId;
+
+		Group.findOne ({ id: id, ativo: true }).exec (function (err, grupo) {
+			if (err) {
+				return res.json ({ error: err });
+			}
+			else if (!grupo) {
+				return res.json ({ error: 'Grupo não encontrado!' });
+			}
+			else if (grupo.dono == user) {
+				return res.json ({ error: 'Você é dono do grupo, não pode abandoná-lo assim, só se apagar' });
+			}
+			else {
+				grupo.mlkda.remove (user);
+				grupo.save (function (err) {
+					if (err) {
+						return res.json ({ error: err });
+					}
+					return res.json ({ success: 'Abandonou grupo' });
 				});
 			}
 		});

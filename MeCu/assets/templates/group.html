@@ -9,6 +9,10 @@
 			</div>
 		</div>
 
+		<!-- Apaga grupo!!!!! -->
+		<button class='btn btn-danger' ng-if='souDonoDoGrupo (grupo)' ng-click='apagaGrupo ()'>Apagar grupo</button>
+		<button class='btn btn-danger' ng-if='!souDonoDoGrupo (grupo) && sigoGrupo (grupo)' ng-click='sairDoGrupo ()'>Sair do grupo</button>
+
 		<!-- Adiciona pessoa -->
 		<div class='input-group'>
 			<span class='input-group-addon'>Adicionar pessoa</span>

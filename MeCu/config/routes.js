@@ -59,4 +59,6 @@ module.exports.routes = {
 	'post /group': 'GroupController.pegaGrupo',
 	'post /newGroup': 'GroupController.criaGrupo',
 	'post /group/addAlguem': 'GroupController.addAlguem',
+	'post /group/apaga': 'GroupController.apagaGrupo',
+	'post /group/sair': 'GroupController.sairDoGrupo',
 };

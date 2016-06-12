@@ -22,8 +22,4 @@ app.controller ('AllGroupsController', function ($scope, $http, $location) {
 			}
 		}, deuBosta ('CriaGrupo'));
 	};
-
-	$scope.goToGrupo = function (grupo) {
-		$location.path ((grupo.dono == $scope.user.id ? '/myGroup' : '/group') + '/' + grupo.id);
-	};
 });

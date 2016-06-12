@@ -89,3 +89,25 @@ app.filter ('reverse', function () {
 	};
 });
 
+
+// Controller de informações de usuário
+app.controller ('UserInfoController', function ($scope, UserInfo) {
+	UserInfo ($scope);
+	$scope.navbar = '/templates/navbar.html';
+
+	// Filtro pra grupos que sou dono
+	$scope.souDonoDoGrupo = function (grupo) {
+		return $scope.user && grupo.dono == $scope.user.id;
+	};
+	// Filtro pra grupos que sigo
+	$scope.sigoGrupo = function (grupo) {
+		return $scope.user && grupo.mlkda.find (function (users) {
+			return users.id == $scope.user.id;
+		});
+	};
+	// Filtro pra grupos que não sigo
+	$scope.notSigoGrupo = function (grupo) {
+		return !$scope.sigoGrupo (grupo);
+	};
+});
+
