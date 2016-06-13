@@ -55,14 +55,14 @@
 		<div class='row flex-row'>
 			<div ng-repeat='post in allPosts'>
 				<!-- botão de apagar, só se puder apagar -->
-				<button class='btn btn-danger btn-sm' ng-click='mataPost (post.id, $index)' ng-show='podeApagar'><span class='glyphicon glyphicon-remove'></span></button>
+				<button class='btn btn-danger btn-sm' ng-click='mataPost (post.id, $index)' ng-show='post.user.id == user.id && podeApagar'><span class='glyphicon glyphicon-remove'></span></button>
 
 				<div class='panel panel-default container'>
 					<!-- botão de salvar edição, só se puder editar -->
-					<button class='btn btn-default' ng-click='atualizaPost (post)' ng-show='podeEditar'><span class='glyphicon glyphicon-ok'></span></button>
-					<input type='text' ng-model='post.conteudo' ng-show='podeEditar'>
+					<button class='btn btn-default' ng-click='atualizaPost (post)' ng-show='post.user.id == user.id && podeEditar'><span class='glyphicon glyphicon-ok'></span></button>
+					<input type='text' ng-model='post.conteudo' ng-show='post.user.id == user.id && podeEditar'>
 					<!-- readonly -->
-					<span ng-hide='podeEditar'>
+					<span ng-hide='post.user.id == user.id && podeEditar'>
 						<b>{{ post.user.nome || user.nome }}</b> - {{ post.createdAt | date:'dd/MM/yyyy' }} - {{ post.titulo }}
 						<blockquote>
 							<div ng-bind-html='post.conteudo | trataPost'></div>
