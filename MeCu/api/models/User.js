@@ -58,6 +58,16 @@ module.exports = {
 			collection: 'group',
 			via: 'mlkda',
 		},
+
+		// posts que curti/odiei
+		post_que_curti: {
+			collection: 'post',
+			via: 'curtiu',
+		},
+		post_que_odiei: {
+			collection: 'post',
+			via: 'odiou',
+		},
 	}
 };
 

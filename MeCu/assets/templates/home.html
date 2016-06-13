@@ -67,6 +67,10 @@
 						<blockquote>
 							<div ng-bind-html='post.conteudo | trataPost'></div>
 						</blockquote>
+						<button class='btn btn-{{ post.gosto == "like" ? "success" : "default" }} btn-xs' ng-click='curtir (post)'><span class='glyphicon glyphicon-thumbs-up'></span></button>
+						{{ post.curtidas }}
+						<button class='btn btn-{{ post.gosto == "dislike" ? "danger" : "default" }} btn-xs' ng-click='odiar (post)'><span class='glyphicon glyphicon-thumbs-down'></span></button>
+						{{ post.odiadas }}
 					</span>
 				</div>
 			</div>

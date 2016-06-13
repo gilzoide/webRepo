@@ -14,7 +14,6 @@ app.controller ('PostController', function ($scope, $http) {
 			else {
 				$scope.error = false;
 				$scope.allPosts = res.data;
-				console.log (res.data);
 			}
 		}, deuBosta ('PegaTodosPosts'));
 		$scope.carregando = false;
@@ -70,6 +69,42 @@ app.controller ('PostController', function ($scope, $http) {
 				}
 			}, deuBosta ('AtualizaPost'));
 		};
+
+		// do/undo like/dislike
+		$scope.curtir = function (post) {
+			var novoGosto = post.gosto == 'like' ? 'likeWhatever' : 'like';
+			$http.post ('/post/gosto', { id: post.id, gosto: post.gosto, novoGosto: novoGosto }).then (function (res) {
+				if (res.data.error) {
+					$scope.error = res.data.error;
+					$scope.success = false;
+				}
+				else {
+					$scope.error = false;
+					$scope.success = false;
+					post.curtidas = res.data.curtidas;
+					post.odiadas = res.data.odiadas;
+					post.gosto = novoGosto;
+					console.log (res.data);
+				} 
+			}, deuBosta ('PostGosto'));
+		};
+		$scope.odiar = function (post) {
+			var novoGosto = post.gosto == 'dislike' ? 'likeWhatever' : 'dislike';
+			$http.post ('/post/gosto', { id: post.id, gosto: post.gosto, novoGosto: novoGosto }).then (function (res) {
+				if (res.data.error) {
+					$scope.error = res.data.error;
+					$scope.success = false;
+				}
+				else {
+					$scope.error = false;
+					$scope.success = false;
+					post.curtidas = res.data.curtidas;
+					post.odiadas = res.data.odiadas;
+					post.gosto = novoGosto;
+				} 
+			}, deuBosta ('PostGosto'));
+		};
+
 	});
 });
 
@@ -92,8 +127,6 @@ app.filter ('trataPost', function () {
 		texto = texto.replace (/(#\w+)/g, function (str, tag) {
 			return "<i>" + tag + "</i>";
 		});
-
-		console.log (texto);
 
 		return texto;
 	};

@@ -19,6 +19,18 @@ module.exports = {
 			model: 'user',
 			required: true,
 		},
+		
+		// like/deslike
+		curtiu: {
+			collection: 'user',
+			via: 'post_que_curti',
+			dominant: true,
+		},
+		odiou: {
+			collection: 'user',
+			via: 'post_que_odiei',
+			dominant: true,
+		},
 	}
 };
 

@@ -119,20 +119,87 @@ module.exports = {
 			if (user.segue_grupo.length) {
 				criterios.push ({ conteudo: { 'contains' : user.segue_grupo.map (function (g) { return '@' + g.nome; }) } });
 			}
-			// procura posts
-			Post.find ({ 'or': criterios }).populate ('user').exec (function (err, posts) {
+			// procura posts, ordenados por data
+			Post.find ({ 'or': criterios, 'sort': 'createdAt DESC' }).populate (['user', 'curtiu', 'odiou']).exec (function (err, posts) {
 				if (err) {
 					return res.json ({ error: err });
 				}
 
-				// junta posts do usuário com os de quem ele segue
-				var todosPosts = user.posts.concat (posts);
+				// pra cada post, insere gosto do usuário (like, dislike, likeWhatever), pra facilitar transição
+				// insere também total de curtidas/odiadas
+				posts.forEach (function (p) {
+					if (p.curtiu.find (function (u) { return u.id == user.id; })) {
+						p.gosto = 'like';
+					}
+					else if (p.odiou.find (function (u) { return u.id == user.id; })) {
+						p.gosto = 'dislike';
+					}
+					else {
+						p.gosto = 'likeWhatever';
+					}
 
-				// ordena-os por data de criação, DESC
-				return res.json (todosPosts.sort (function (a, b) {
-					return b.createdAt - a.createdAt;
-				}));
+					p.curtidas = p.curtiu.length;
+					p.odiadas = p.odiou.length;
+				});
+				return res.json (posts);
 			});
+		});
+	},
+
+	// Curte um post =P
+	mudaGosto: function (req, res) {
+		var id = req.session.userId;
+		var post = req.param ('id');
+		var gosto = req.param ('gosto');
+		var novoGosto = req.param ('novoGosto');
+
+		var gostosValidos = ['like', 'dislike', 'likeWhatever'];
+		
+		if (!post) {
+			return res.json ({ error: 'Dá ID do post pra poder curtir' });
+		}
+		else if (gostosValidos.indexOf (gosto) == -1) {
+			return res.json ({ error: 'Gosto inválido' });
+		}
+		else if (gostosValidos.indexOf (novoGosto) == -1) {
+			return res.json ({ error: 'Novo Gosto inválido' });
+		}
+
+		Post.findOneById (post).populate (['curtiu', 'odiou']).exec (function (err, P) {
+			if (err) {
+				return res.json ({ error: err });
+			}
+			else if (!P) {
+				return res.json ({ error: 'Post não encontrado =/' });
+			}
+
+			var curtidas = P.curtiu.length;
+			var odiadas = P.odiou.length;
+			// se curtia e mudou, n curte mais
+			if (gosto == 'like') {
+				P.curtiu.remove (id);
+				curtidas--;
+			}
+			// se odiava e mudou, n odeia mais
+			else if (gosto == 'dislike') {
+				P.odiou.remove (id);
+				odiadas--;
+			}
+
+			// agora curte
+			if (novoGosto == 'like') {
+				P.curtiu.add (id);
+				curtidas++;
+			}
+			// agora odeia
+			else if (novoGosto == 'dislike') {
+				P.odiou.add (id);
+				odiadas++;
+			}
+			// se likeWhatever, põe em lugar nenhum
+
+			P.save ();
+			return res.json ({ curtidas: curtidas, odiadas: odiadas });
 		});
 	},
 };

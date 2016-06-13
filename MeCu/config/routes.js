@@ -43,6 +43,7 @@ module.exports.routes = {
 	'post /post': 'HomeController.post',
 	'post /post/update': 'HomeController.atualizaPost',
 	'post /post/remove': 'HomeController.apagaPost',
+	'post /post/gosto': 'HomeController.mudaGosto',
 
 	// atualização de usuário
 	'post /user/descricao': 'ConfigController.atualizaDescricao',
