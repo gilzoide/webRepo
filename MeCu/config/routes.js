@@ -55,6 +55,9 @@ module.exports.routes = {
 	'get /allUsers': 'UserController.pegaCadastrados',
 	'post /user': 'UserController.pegaUsuario',
 
+	// seguir usuário
+	'post /user/seguir': 'UserController.seguir',
+
 	// grupos
 	'get /allGroups': 'GroupController.pegaCadastrados',
 	'post /group': 'GroupController.pegaGrupo',

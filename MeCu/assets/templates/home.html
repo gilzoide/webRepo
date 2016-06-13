@@ -63,7 +63,7 @@
 					<input type='text' ng-model='post.conteudo' ng-show='podeEditar'>
 					<!-- readonly -->
 					<span ng-hide='podeEditar'>
-						{{ post.createdAt | date:'dd/MM/yyyy' }} - {{ post.titulo }}
+						<b>{{ post.user.nome || user.nome }}</b> - {{ post.createdAt | date:'dd/MM/yyyy' }} - {{ post.titulo }}
 						<blockquote>
 							<div ng-bind-html='post.conteudo | trataPost'></div>
 						</blockquote>

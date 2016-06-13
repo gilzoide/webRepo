@@ -10,6 +10,21 @@ app.controller ('UserController', function ($scope, $http, $routeParams, $locati
 		}
 		else {
 			$scope.pessoa = res.data;
+			$scope.sigo = res.data.sigo;
 		}
-	}, deuBosta ('GetGroup'));
+	}, deuBosta ('GetUser'));
+
+	$scope.seguir = function (pessoa) {
+		$http.post ('/user/seguir', { id: pessoa.id }).then (function (res) {
+			if (res.data.error) {
+				$scope.error = res.data.error;
+				$scope.success = false;;
+			}
+			else {
+				$scope.error = false;
+				$scope.success = res.data.success;
+				$scope.sigo = res.data.sigo;
+			}
+		}, deuBosta ('SeguirPessoa'));
+	};
 });

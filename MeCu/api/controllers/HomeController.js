@@ -99,7 +99,7 @@ module.exports = {
 	// Pega todos os posts que usuário logado escuta (incluindo grupos e talz)
 	pegaTodosPosts: function (req, res) {
 		var id = req.session.userId;
-		User.findOne ({ id: id }).populate (['segue_grupo', 'posts']).exec (function (err, user) {
+		User.findOne ({ id: id }).populate (['segue_pessoa', 'segue_grupo']).exec (function (err, user) {
 			if (err) {
 				return res.json ({ error: err });
 			}
@@ -107,9 +107,32 @@ module.exports = {
 				return res.json ({ error: 'Usuário não encontrado =S' });
 			}
 
-			return res.json (user.posts.sort (function (a, b) {
-				return b.createdAt - a.createdAt;
-			}));
+			// inclui próprio usuário na busca por posts, como se ele mesmo se seguisse
+			user.segue_pessoa.push ({ id: id });
+
+			// critérios de buscar posts. Padrão: quem sigo (incluindo eu mesmo), e posts q me referenciam
+			var criterios = [
+				{ user: user.segue_pessoa.map (function (u) { return u.id; }) },
+				{ conteudo: { 'contains': '@' + user.apelido } },
+			];
+			// se seguir grupos, procura posts de grupo
+			if (user.segue_grupo.length) {
+				criterios.push ({ conteudo: { 'contains' : user.segue_grupo.map (function (g) { return '@' + g.nome; }) } });
+			}
+			// procura posts
+			Post.find ({ 'or': criterios }).populate ('user').exec (function (err, posts) {
+				if (err) {
+					return res.json ({ error: err });
+				}
+
+				// junta posts do usuário com os de quem ele segue
+				var todosPosts = user.posts.concat (posts);
+
+				// ordena-os por data de criação, DESC
+				return res.json (todosPosts.sort (function (a, b) {
+					return b.createdAt - a.createdAt;
+				}));
+			});
 		});
 	},
 };

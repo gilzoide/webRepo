@@ -20,8 +20,8 @@ function criaAtualizacao (nomeCampo) {
 			}
 			else {
 				var user = users[0];
-				console.log ('"' + user.apelido + '" atualizou ' + nomeCampo);
-				console.log (user);
+				//console.log ('"' + user.apelido + '" atualizou ' + nomeCampo);
+				//console.log (user);
 				user.save ();
 				return res.json ({ success: nomeCampo + ' atualizado(a)' });
 			}

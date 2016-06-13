@@ -14,6 +14,7 @@ app.controller ('PostController', function ($scope, $http) {
 			else {
 				$scope.error = false;
 				$scope.allPosts = res.data;
+				console.log (res.data);
 			}
 		}, deuBosta ('PegaTodosPosts'));
 		$scope.carregando = false;
@@ -88,9 +89,11 @@ app.filter ('trataPost', function () {
 			return "<a href='#/userName/" + nome + "'>@" + nome + "</a>";
 		});
 		// trata tags -> #tag
-		texto = texto.replace (/(#\S+)/g, function (str, tag) {
+		texto = texto.replace (/(#\w+)/g, function (str, tag) {
 			return "<i>" + tag + "</i>";
 		});
+
+		console.log (texto);
 
 		return texto;
 	};
