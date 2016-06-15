@@ -2,6 +2,7 @@
 app.controller ('PostController', function ($scope, $http) {
 	// variáveis temporárias, enquanto o trem não carregou os posts ainda
 	$scope.allPosts = [];
+	$scope.filtroStr = '';
 
 	// espera ter info sobre o usuário pra cadastrar as coisas
 	$scope.$on ('gotUser', function () {
@@ -104,7 +105,6 @@ app.controller ('PostController', function ($scope, $http) {
 				} 
 			}, deuBosta ('PostGosto'));
 		};
-
 	});
 });
 
@@ -129,5 +129,30 @@ app.filter ('trataPost', function () {
 		});
 
 		return texto;
+	};
+});
+
+
+app.filter ('filtroDePosts', function () {
+	return function (posts, filtroStr) {
+		filtro = {
+			pessoas: (filtroStr.match (/@\w+/g) || []).map (function (s) { return s.substr (1); }),
+			temas: (filtroStr.match (/#\w+/g) || []),
+		}
+		return posts.filter (function (post) {
+			if (!filtro.pessoas.length && !filtro.temas.length) {
+				return true;
+			}
+			else {
+				var resultPessoas = filtro.pessoas.find (function (nome) { return nome == post.user.apelido; });
+				var resultTemas = filtro.temas.find (function (tema) { return post.conteudo.search (tema) != -1; });
+				if (filtro.pessoas.length && filtro.temas.length) {
+					return resultPessoas && resultTemas;
+				}
+				else {
+					return resultPessoas || resultTemas;
+				}
+			}
+		});
 	};
 });

@@ -37,10 +37,7 @@
 		<div class='input-group'>
 			<!-- filtragem -->
 			<span class='input-group-addon'>Filtrar posts</span>
-			<input type='text' class='form-control' ng-model='filtroDePosts' placeholder='Filtro'>
-			<span class='input-group-btn'>
-				<button class='btn btn-default' ng-click=''><span class='glyphicon glyphicon-ok'></span></button>
-			</span>
+			<input type='text' class='form-control' ng-model='filtroStr' placeholder='Filtro'>
 		</div>
 		<!-- erro -->
 		<div class='alert alert-danger alert-dismissible' ng-show='error'>
@@ -53,7 +50,7 @@
 
 		<!-- printa posts, ao contrário (mais novo mais acima) -->
 		<div class='row flex-row'>
-			<div ng-repeat='post in allPosts'>
+			<div ng-repeat='post in allPosts | filtroDePosts: filtroStr'>
 				<!-- botão de apagar, só se puder apagar -->
 				<button class='btn btn-danger btn-sm' ng-click='mataPost (post.id, $index)' ng-show='post.user.id == user.id && podeApagar'><span class='glyphicon glyphicon-remove'></span></button>
 
