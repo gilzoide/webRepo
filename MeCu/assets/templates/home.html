@@ -60,14 +60,15 @@
 					<input type='text' ng-model='post.conteudo' ng-show='post.user.id == user.id && podeEditar'>
 					<!-- readonly -->
 					<span ng-hide='post.user.id == user.id && podeEditar'>
-						<b>{{ post.user.nome || user.nome }}</b> - {{ post.createdAt | date:'dd/MM/yyyy' }} - {{ post.titulo }}
+						<a href='#/user/{{ post.repost.user }}' ng-if='post.repost'>Repost</a> <b>{{ post.user.nome || user.nome }}</b> - {{ post.createdAt | date:'dd/MM/yyyy' }} - {{ (post.titulo || post.repost.titulo) }}
 						<blockquote>
-							<div ng-bind-html='post.conteudo | trataPost'></div>
+							<div ng-bind-html='(post.conteudo || post.repost.conteudo) | trataPost'></div>
 						</blockquote>
 						<button class='btn btn-{{ post.gosto == "like" ? "success" : "default" }} btn-xs' ng-click='curtir (post)'><span class='glyphicon glyphicon-thumbs-up'></span></button>
 						{{ post.curtidas }}
 						<button class='btn btn-{{ post.gosto == "dislike" ? "danger" : "default" }} btn-xs' ng-click='odiar (post)'><span class='glyphicon glyphicon-thumbs-down'></span></button>
 						{{ post.odiadas }}
+						<button class='btn btn-default btn-xs' ng-click='repost (post)'><span class='glyphicon glyphicon-duplicate'></span> Repostar</button>
 					</span>
 				</div>
 			</div>

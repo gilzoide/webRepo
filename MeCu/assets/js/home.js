@@ -45,7 +45,7 @@ app.controller ('PostController', function ($scope, $http) {
 					$scope.success = false;
 				}
 				else {
-					$scope.allPosts.splice ($scope.allPosts.length - index - 1, 1);
+					$scope.allPosts.splice (index, 1);
 					$scope.error = false;
 					$scope.success = res.data.success;
 				}
@@ -104,6 +104,19 @@ app.controller ('PostController', function ($scope, $http) {
 					post.gosto = novoGosto;
 				} 
 			}, deuBosta ('PostGosto'));
+		};
+
+		// repost
+		$scope.repost = function (postOriginal) {
+			$http.post ('/repost', { post: postOriginal.id }).then (function (res) {
+				if (res.data.error) {
+					$scope.error = res.data.error;
+				}
+				else {
+					$scope.allPosts.unshift (res.data.post);
+					$scope.error = false;
+				}
+			}, deuBosta ('Repost'));
 		};
 	});
 });

@@ -9,11 +9,9 @@ module.exports = {
 	attributes: {
 		titulo: {
 			type: 'string',
-			required: true,
 		},
 		conteudo: {
 			type: 'string',
-			required: true,
 		},
 		user: {
 			model: 'user',
@@ -30,6 +28,12 @@ module.exports = {
 			collection: 'user',
 			via: 'post_que_odiei',
 			dominant: true,
+		},
+
+		// Se post for um repost, esse campo existe e referencia outro post (o original)
+		// Se for repost, só o 'user', 'curtiu' e 'odiou' conta, visto que o resto virá do post original
+		repost: {
+			model: 'post',
 		},
 	}
 };

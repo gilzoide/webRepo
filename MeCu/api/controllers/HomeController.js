@@ -5,6 +5,8 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
+var atributosNecessarios = ['user', 'curtiu', 'odiou', 'repost'];
+
 module.exports = {
 	// Pega informações do usuário loggado. Precisa ter autenticado
 	getLogged: function (req, res) {
@@ -45,15 +47,57 @@ module.exports = {
 		var id = req.session.userId;
 		Post.create ({ titulo: titulo, conteudo: conteudo, user: id }).exec (function (err, newPost) {
 			if (err) {
-				return res.json ({ error: 'Falha ao criar post =/' });
+				return res.json ({ error: err });
 			}
 			else if (!newPost) {
 				return res.json ({ error: 'Usuário tá mesmo loggado?' });
 			}
-			else {
-				newPost.save ();
-				return res.json ({ post: newPost });
+
+			// inicializa coisas importantes
+			newPost.curtidas = 0;
+			newPost.odiadas = 0;
+			newPost.gosto = 'likeWhatever';
+			newPost.user = { id: id };
+			return res.json ({ post: newPost });
+		});
+	},
+
+	repost: function (req, res) {
+		var id = req.session.userId;
+		var postOriginal = req.param ('post');
+
+		Post.findOneById (postOriginal).populate ('repost').exec (function (err, post) {
+			if (err) {
+				return res.json ({ error: err });
 			}
+			else if (!post) {
+				return res.json ({ error: 'Não posso repostar um post que não existe =/' });
+			}
+			
+			// se o post for um repost tb, referencia quem ele referencia, e não ele mesmo
+			if (post.repost) {
+				postOriginal = post.repost.id;
+				post = post.repost;
+			}
+
+			// se post existe e talz, cria o repost ;]
+			Post.create ({ user: id, repost: postOriginal }).exec (function (err, criado) {
+				if (err) {
+					return res.json ({ error: err });
+				}
+				else if (!criado) {
+					return res.json ({ error: 'Falha ao criar repost' });
+				}
+
+				// inicializa coisas importantes
+				criado.curtidas = 0;
+				criado.odiadas = 0;
+				criado.gosto = 'likeWhatever';
+				criado.repost = post;
+				criado.user = { id: id };
+
+				return res.json ({ post: criado });
+			});
 		});
 	},
 
@@ -62,7 +106,12 @@ module.exports = {
 		var postId = req.param ('id');
 		var id = req.session.userId;
 
-		Post.destroy ({ id: postId, user: id }).exec (function (err) {
+		Post.destroy ({ 'or': [
+			// post dado
+			{ id: postId, user: id },
+			// qualquer repost desse aqui
+			{ repost: postId },
+		]}).exec (function (err) {
 			if (err) {
 				return res.json ({ error: 'Apaga post: deu não. És o dono do post?' });
 			}
@@ -120,7 +169,7 @@ module.exports = {
 				criterios.push ({ conteudo: { 'contains' : user.segue_grupo.map (function (g) { return '@' + g.nome; }) } });
 			}
 			// procura posts, ordenados por data
-			Post.find ({ 'or': criterios, 'sort': 'createdAt DESC' }).populate (['user', 'curtiu', 'odiou']).exec (function (err, posts) {
+			Post.find ({ 'or': criterios, 'sort': 'createdAt DESC' }).populate (atributosNecessarios).exec (function (err, posts) {
 				if (err) {
 					return res.json ({ error: err });
 				}
@@ -137,6 +186,10 @@ module.exports = {
 					else {
 						p.gosto = 'likeWhatever';
 					}
+
+					//if (p.repost) {
+						//console.log (p);
+					//}
 
 					p.curtidas = p.curtiu.length;
 					p.odiadas = p.odiou.length;
