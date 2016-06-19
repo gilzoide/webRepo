@@ -49,7 +49,7 @@
 		</div>
 
 		<!-- printa posts, ao contrário (mais novo mais acima) -->
-		<div class='row flex-row'>
+		<div ng-controller='PostViewController' class='row flex-row'>
 			<div ng-repeat='post in allPosts | filtroDePosts: filtroStr'>
 				<!-- botão de apagar, só se puder apagar -->
 				<button class='btn btn-danger btn-sm' ng-click='mataPost (post.id, $index)' ng-show='post.user.id == user.id && podeApagar'><span class='glyphicon glyphicon-remove'></span></button>

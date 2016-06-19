@@ -187,10 +187,6 @@ module.exports = {
 						p.gosto = 'likeWhatever';
 					}
 
-					//if (p.repost) {
-						//console.log (p);
-					//}
-
 					p.curtidas = p.curtiu.length;
 					p.odiadas = p.odiou.length;
 				});

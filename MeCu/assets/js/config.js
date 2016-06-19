@@ -1,8 +1,10 @@
-app.controller ('UserConfigController', function ($scope, UserInfo, $http, $location) {
+app.controller ('UserConfigController', function ($scope, UserInfo, $http, $location, $filter) {
 	$scope.error = false;
 	$scope.success = false;
 
 	$scope.$on ('gotUser', function () {
+		// trocar data de nascimento, pra ficar legível (xupa ISO)
+		$scope.user.niver = $filter ('date') ($scope.user.niver, 'yyyy-MM-dd', '+0000');
 		// apagar usuário =S
 		$scope.apagaTe = function () {
 			if (confirm ('Tem certeza que quer se apagar?')) {
@@ -39,21 +41,16 @@ app.controller ('UserConfigController', function ($scope, UserInfo, $http, $loca
 
 		// função de atualizar data de nascimento, que é especial
 		$scope.atualizaNiver = function () {
-			if (!$scope.user.niver) {
-				$scope.error = 'Data inválida!'
-			}
-			else {
-				$http.post ('/user/niver', { niver: $scope.user.niver }).then (function (res) {
-					if (res.data.error) {
-						$scope.error = res.data.error;
-						$scope.success = false;
-					}
-					else {
-						$scope.success = res.data.success;
-						$scope.error = false;
-					}
-				}, deuBosta ('Atualiza_niver'));
-			}
+			$http.post ('/user/niver', { niver: $scope.user.niver }).then (function (res) {
+				if (res.data.error) {
+					$scope.error = res.data.error;
+					$scope.success = false;
+				}
+				else {
+					$scope.success = res.data.success;
+					$scope.error = false;
+				}
+			}, deuBosta ('Atualiza_niver'));
 		};
 		// função de atualizar a senha, que é especial
 		$scope.atualizaSenha = function () {

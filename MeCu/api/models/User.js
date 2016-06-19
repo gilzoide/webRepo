@@ -21,7 +21,7 @@ module.exports = {
 		},
 		niver: {
 			type: 'date',
-			defaultsTo: '2000-01-01T00:00:00.000Z',
+			defaultsTo: '2000-01-01',
 		},
 		descricao: {
 			type: 'string',

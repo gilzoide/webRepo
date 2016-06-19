@@ -20,8 +20,8 @@ function criaAtualizacao (nomeCampo) {
 			}
 			else {
 				var user = users[0];
-				//console.log ('"' + user.apelido + '" atualizou ' + nomeCampo);
-				//console.log (user);
+				console.log ('"' + user.apelido + '" atualizou ' + nomeCampo);
+				console.log (user);
 				user.save ();
 				return res.json ({ success: nomeCampo + ' atualizado(a)' });
 			}
@@ -34,7 +34,30 @@ module.exports = {
 	atualizaDescricao: criaAtualizacao ('descricao'),
 	atualizaNome: criaAtualizacao ('nome'),
 	atualizaFoto: criaAtualizacao ('foto'),
-	atualizaNiver: criaAtualizacao ('niver'),
+
+	// Atualiza aniversário, que também é especial
+	atualizaNiver: function (req, res) {
+		var novoNiver = req.param ('niver');
+		var id = req.session.userId;
+
+		var data = Date.parse (novoNiver);
+		if (!data) {
+			return res.json ({ error: 'Data inválida' });
+		}
+
+		User.update ({ id: id }, { niver: new Date (data).toISOString () }).exec (function (err, users) {
+			if (err) {
+				return res.json ({ error: err });
+			}
+			else {
+				var user = users[0];
+				console.log ('"' + user.apelido + '" atualizou niver');
+				console.log (user);
+				user.save ();
+				return res.json ({ success: 'niver atualizado(a)' });
+			}
+		});
+	},
 
 	// Atualiza senha, que é especial
 	atualizaSenha: function (req, res) {

@@ -70,7 +70,12 @@ app.controller ('PostController', function ($scope, $http) {
 				}
 			}, deuBosta ('AtualizaPost'));
 		};
+	});
+});
 
+
+/// Controlador para visualização de posts, com direito a like/dislike e repost
+app.controller ('PostViewController', function ($scope, $http, $location) {
 		// do/undo like/dislike
 		$scope.curtir = function (post) {
 			var novoGosto = post.gosto == 'like' ? 'likeWhatever' : 'like';
@@ -85,9 +90,8 @@ app.controller ('PostController', function ($scope, $http) {
 					post.curtidas = res.data.curtidas;
 					post.odiadas = res.data.odiadas;
 					post.gosto = novoGosto;
-					console.log (res.data);
 				} 
-			}, deuBosta ('PostGosto'));
+			}, deuBosta ('PostLike'));
 		};
 		$scope.odiar = function (post) {
 			var novoGosto = post.gosto == 'dislike' ? 'likeWhatever' : 'dislike';
@@ -103,7 +107,7 @@ app.controller ('PostController', function ($scope, $http) {
 					post.odiadas = res.data.odiadas;
 					post.gosto = novoGosto;
 				} 
-			}, deuBosta ('PostGosto'));
+			}, deuBosta ('PostDislike'));
 		};
 
 		// repost
@@ -113,12 +117,14 @@ app.controller ('PostController', function ($scope, $http) {
 					$scope.error = res.data.error;
 				}
 				else {
+					// se tiver em página de outros, vai pra home ver o post novo
+					$location.path ('/home');
+					// se tiver na home mesmo, põe o post lá no vetor
 					$scope.allPosts.unshift (res.data.post);
 					$scope.error = false;
 				}
 			}, deuBosta ('Repost'));
 		};
-	});
 });
 
 

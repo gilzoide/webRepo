@@ -9,8 +9,9 @@ app.controller ('UserController', function ($scope, $http, $routeParams, $locati
 			$scope.error = res.data.error;
 		}
 		else {
-			$scope.pessoa = res.data;
-			$scope.sigo = res.data.sigo;
+			$scope.pessoa = res.data.user;
+			$scope.allPosts = res.data.posts;
+			$scope.sigo = $scope.pessoa.sigo;
 		}
 	}, deuBosta ('GetUser'));
 
@@ -18,7 +19,7 @@ app.controller ('UserController', function ($scope, $http, $routeParams, $locati
 		$http.post ('/user/seguir', { id: pessoa.id }).then (function (res) {
 			if (res.data.error) {
 				$scope.error = res.data.error;
-				$scope.success = false;;
+				$scope.success = false;
 			}
 			else {
 				$scope.error = false;
