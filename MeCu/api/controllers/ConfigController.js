@@ -45,6 +45,8 @@ module.exports = {
 			return res.json ({ error: 'Data inválida' });
 		}
 
+		data = new Date (data);
+
 		User.update ({ id: id }, { niver: new Date (data).toISOString () }).exec (function (err, users) {
 			if (err) {
 				return res.json ({ error: err });

@@ -72,6 +72,10 @@ app.config (function ($routeProvider) {
 	$routeProvider.when ('/myGroup/:groupId', {
 		templateUrl: '/templates/group.html',
 	});
+	// no '/data', rola 'data'
+	$routeProvider.when ('/data', {
+		templateUrl: '/templates/data.html',
+	});
 	// 404!
 	$routeProvider.otherwise ({
 		templateUrl: '/templates/404.html',

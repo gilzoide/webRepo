@@ -67,4 +67,7 @@ module.exports.routes = {
 	'post /group/addAlguem': 'GroupController.addAlguem',
 	'post /group/apaga': 'GroupController.apagaGrupo',
 	'post /group/sair': 'GroupController.sairDoGrupo',
+
+	// importação/exportação de dados
+	'get /MeCu.json': 'DataController.downloadBD',
 };

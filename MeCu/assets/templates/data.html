@@ -1,0 +1,29 @@
+<div ng-controller='UserInfoController' class='container'>
+	<div ng-include='navbar'></div>
+
+	<!-- Cabeçalho -->
+	<div class='page-header row'>
+		<div class='col-md-12'>
+			<h1>Importação e Exportação de dados</h1>
+		</div>
+	</div>
+
+	<div ng-controller='DataController'>
+		<div class='alert alert-success alert-dismissible' ng-show='success'>
+			{{ success }}
+		</div>
+		<div class='alert alert-danger alert-dismissible' ng-show='error'>
+			{{ error }}
+		</div>
+		
+		<div class='input-group'>
+			<input type='file' id='entrada'>
+			<button class='btn btn-default' ng-click='import (entrada)'><span class='glyphicon glyphicon-import'></span> Importar</button>
+		</div>
+		<br>
+
+		<div class='input-group'>
+			<a class='btn btn-default' href='/MeCu.json' download target='_blank'><span class='glyphicon glyphicon-export'></span> Exportar</a>
+		</div>
+	</div>
+</div>
