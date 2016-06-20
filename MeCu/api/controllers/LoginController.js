@@ -44,7 +44,15 @@ module.exports = {
 	/// Logar
 	login: function (req, res) {
 		var apelido = req.param ('apelido');
+		if (!apelido) {
+			return res.json ({ error : 'Apelido é necessário para realizar login' });
+		}
+
 		var senha = req.param ('senha');
+		if (!senha) {
+			return res.json ({ error : 'Senha é necessária para realizar login' });
+		}
+
 		User.findOne ({ apelido: apelido }, function (err, user) {
 			if (err) {
 				return res.json ({ error: 'Falha ao logar =/' });
