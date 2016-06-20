@@ -10,11 +10,19 @@ app.controller ('DataController', function ($scope, $http) {
 				var conteudo = reader.result;
 				try {
 					var json = JSON.parse (conteudo);
-					$scope.success = 'Deu';
-					$scope.error = false;
+					$http.post ('/carregaBD', { bd: json }).then (function (res) {
+						if (res.data.error) {
+							$scope.error = res.data.error;
+							$scope.success = false;
+						}
+						else {
+							$scope.success = res.data.success;
+							$scope.error = false;
+						}
+					}, deuBosta ('ImportaBD'));
 				}
 				catch (e) {
-					console.error (e.message);
+					alert (e.message);
 					$scope.error = e.message;
 					$scope.success = false;
 				}

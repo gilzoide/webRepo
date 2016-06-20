@@ -70,4 +70,5 @@ module.exports.routes = {
 
 	// importação/exportação de dados
 	'get /MeCu.json': 'DataController.downloadBD',
+	'post /carregaBD': 'DataController.carregaBD',
 };

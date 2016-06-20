@@ -2,18 +2,18 @@
 	"users": [
 		{
 			"id": 1,
-			"nome": "John Doe",
-			"login": "johndoe",
-			"password": "senha",
-			"birthday": "mm-dd-yyy",
+			"nome": "U1",
+			"login": "u1",
+			"password": "a",
+			"birthday": "20-01-1994",
 			"bio": "bio do John Doe"
 		},
 		{
 			"id": 2,
-			"nome": "Jane Doe",
-			"login": "janedoe",
-			"password": "senha2 em md5",
-			"birthday": "dd-mm-yyyy",
+			"nome": "U2",
+			"login": "u2",
+			"password": "a",
+			"birthday": "01-12-1992",
 			"bio": "bio da Jane Doe"
 		}
 	],
@@ -31,7 +31,7 @@
 			"list": [
 				{
 					"nome": "group1",
-					"users": [2,3,4],
+					"users": [2],
 					"relativeId": 1
 				}
 			]
