@@ -68,7 +68,7 @@ module.exports = {
 		var grupo = req.param ('grupo');
 		var nomePessoa = req.param ('pessoa');
 
-		User.findOne ({ nome: nomePessoa }).exec (function (err, user) {
+		User.findOne ({ apelido: nomePessoa }).exec (function (err, user) {
 			if (err) {
 				return res.json ({ error: err });
 			}
@@ -76,11 +76,11 @@ module.exports = {
 				return res.json ({ error: 'Usuário inexistente' });
 			}
 			else {
-				Group.findOne ({ id: grupo, ativo: true }).exec (function (err, grupo) {
+				Group.findOne ({ id: grupo }).exec (function (err, grupo) {
 					if (err) {
 						return res.json ({ error: err });
 					}
-					else if (!user) {
+					else if (!grupo) {
 						return res.json ({ error: '¿Grupo inexistente?' });
 					}
 					else {
